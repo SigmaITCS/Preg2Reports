@@ -10,6 +10,14 @@
   <DataSets />
   <Reports>
     <ProjectItem>
+      <Name>DeletionOfApproval.rdl</Name>
+      <FullPath>DeletionOfApproval.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>MaHolderReport.rdl</Name>
+      <FullPath>MaHolderReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>ProductNamesReport.rdl</Name>
       <FullPath>ProductNamesReport.rdl</FullPath>
     </ProjectItem>
@@ -25,7 +33,7 @@
       <Options>
         <OutputPath>bin\Debug</OutputPath>
         <TargetServerVersion>SSRS2008R2</TargetServerVersion>
-        <TargetServerURL>http://wl06967/ReportsTest</TargetServerURL>
+        <TargetServerURL>http://wl08762/AstraReports</TargetServerURL>
         <TargetFolder>PREG</TargetFolder>
         <TargetDataSourceFolder>Data Sources</TargetDataSourceFolder>
         <OverwriteDataSources>true</OverwriteDataSources>
