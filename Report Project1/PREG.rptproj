@@ -25,6 +25,14 @@
       <Name>ProductsReport.rdl</Name>
       <FullPath>ProductsReport.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>AllProductPackagesReport.rdl</Name>
+      <FullPath>AllProductPackagesReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>AllProductsManufacturingChainReport.rdl</Name>
+      <FullPath>AllProductsManufacturingChainReport.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
