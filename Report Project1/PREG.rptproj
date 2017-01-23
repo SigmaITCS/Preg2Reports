@@ -37,6 +37,14 @@
       <Name>AllProducts_ProductInformationReport.rdl</Name>
       <FullPath>AllProducts_ProductInformationReport.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>ProductsPackagesSubReport.rdl</Name>
+      <FullPath>ProductsPackagesSubReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>ListOfRenewals.rdl</Name>
+      <FullPath>ListOfRenewals.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
