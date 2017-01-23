@@ -1021,7 +1021,6 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <PaddingBottom>2pt</PaddingBottom>
                             </Style>
                           </Textbox>
-                          <rd:Selected>true</rd:Selected>
                         </CellContents>
                       </TablixHeader>
                       <TablixMembers>

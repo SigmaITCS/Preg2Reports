@@ -10,6 +10,14 @@
   <DataSets />
   <Reports>
     <ProjectItem>
+      <Name>AllProductPackagesReport.rdl</Name>
+      <FullPath>AllProductPackagesReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>AllProductsManufacturingChainReport.rdl</Name>
+      <FullPath>AllProductsManufacturingChainReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>DeletionOfApproval.rdl</Name>
       <FullPath>DeletionOfApproval.rdl</FullPath>
     </ProjectItem>
@@ -26,12 +34,8 @@
       <FullPath>ProductsReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>AllProductPackagesReport.rdl</Name>
-      <FullPath>AllProductPackagesReport.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>AllProductsManufacturingChainReport.rdl</Name>
-      <FullPath>AllProductsManufacturingChainReport.rdl</FullPath>
+      <Name>AllProducts_ProductInformationReport.rdl</Name>
+      <FullPath>AllProducts_ProductInformationReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
