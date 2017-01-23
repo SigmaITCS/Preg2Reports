@@ -45,6 +45,10 @@
       <Name>ListOfRenewals.rdl</Name>
       <FullPath>ListOfRenewals.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>PsurListReport.rdl</Name>
+      <FullPath>PsurListReport.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>
