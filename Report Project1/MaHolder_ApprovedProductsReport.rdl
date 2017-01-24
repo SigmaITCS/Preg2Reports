@@ -32,7 +32,7 @@
    on Responsible.Id= p.ResponsibleManagerId
 
 where ISNULL(ps.ApprovalDate,'')!=''
- order by ps.ApplicationDate</CommandText>
+ order by ps.ApprovalDate, ps.Land</CommandText>
       </Query>
       <Fields>
         <Field Name="Asp_no">
@@ -130,7 +130,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                   <Width>1.91792in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.36979in</Width>
+                  <Width>1.18623in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.40105in</Width>
@@ -142,7 +142,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                   <Width>2.13542in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.25in</Width>
+                  <Width>1.65625in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.20834in</Width>
@@ -156,7 +156,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.22in</Height>
+                  <Height>0.25125in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -404,7 +404,9 @@ where ISNULL(ps.ApprovalDate,'')!=''
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox12</rd:DefaultName>
@@ -547,7 +549,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.21in</Height>
+                  <Height>0.24125in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -779,7 +781,9 @@ where ISNULL(ps.ApprovalDate,'')!=''
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>MaNo</rd:DefaultName>
@@ -958,16 +962,16 @@ where ISNULL(ps.ApprovalDate,'')!=''
               </Filter>
               <Filter>
                 <FilterExpression>=Fields!Country.Value</FilterExpression>
-                <Operator>Equal</Operator>
+                <Operator>In</Operator>
                 <FilterValues>
                   <FilterValue>=Parameters!Country.Value</FilterValue>
                 </FilterValues>
               </Filter>
             </Filters>
             <Top>0.09667in</Top>
-            <Left>0.49953cm</Left>
-            <Height>0.43in</Height>
-            <Width>17.3294in</Width>
+            <Left>0.49954cm</Left>
+            <Height>0.4925in</Height>
+            <Width>17.55209in</Width>
             <Style />
           </Tablix>
         </ReportItems>
@@ -1093,13 +1097,11 @@ where ISNULL(ps.ApprovalDate,'')!=''
   <ReportParameters>
     <ReportParameter Name="Country">
       <DataType>String</DataType>
-      <Nullable>true</Nullable>
       <DefaultValue>
         <Values>
           <Value>Sweden</Value>
         </Values>
       </DefaultValue>
-      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
       <ValidValues>
         <ParameterValues>
@@ -1137,6 +1139,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
           </ParameterValue>
         </ParameterValues>
       </ValidValues>
+      <MultiValue>true</MultiValue>
     </ReportParameter>
     <ReportParameter Name="ResponsibleId">
       <DataType>Integer</DataType>
