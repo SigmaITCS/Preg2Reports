@@ -14,7 +14,7 @@
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
         <CommandText> select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
-	   p.Strength,CAST(ps.ApprovalDate as Date) as [ApprovalDate], app.Name as [ApprovedProcedures], CAST(ps.ApprovalCease as Date) as[Sunset],  ps.MtNumber as [MaNo] , 
+	   p.Strength,ps.ApprovalDate as [ApprovalDate], app.Name as [ApprovedProcedures], ps.ApprovalCease as[Sunset],  ps.MtNumber as [MaNo] , 
          Responsible.Id   as [ResponsibleId]      
  
   from PREG4.dbo.Products p
@@ -31,8 +31,8 @@
   	 left join PREG4.dbo.ResponsibleManagers Responsible
    on Responsible.Id= p.ResponsibleManagerId
 
-where ISNULL(ps.ApprovalDate,'')!=''
- order by ps.ApprovalDate, ps.Land</CommandText>
+where ISNULL(ps.ApprovalDate,'')=''
+ order by ps.Land, ps.ApprovalDate</CommandText>
       </Query>
       <Fields>
         <Field Name="Asp_no">
@@ -969,7 +969,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
               </Filter>
             </Filters>
             <Top>0.09667in</Top>
-            <Left>0.49954cm</Left>
+            <Left>1.08163cm</Left>
             <Height>0.4925in</Height>
             <Width>17.55209in</Width>
             <Style />
@@ -992,7 +992,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PREG 2.0 - </Value>
+                      <Value>PREG 2.0  </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>
@@ -1000,7 +1000,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>MA-Holder -Approved Products</Value>
+                      <Value>MA-Holder -Non-approved Products</Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>20pt</FontSize>
@@ -1013,7 +1013,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
               </Paragraphs>
               <rd:DefaultName>textbox1</rd:DefaultName>
               <Top>0.58208cm</Top>
-              <Left>2.24896cm</Left>
+              <Left>2.88396cm</Left>
               <Height>0.5in</Height>
               <Width>6.5in</Width>
               <Style>
@@ -1028,7 +1028,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
               <Value>AstraZeneca</Value>
               <Sizing>FitProportional</Sizing>
               <Top>0.22917in</Top>
-              <Left>0.19667in</Left>
+              <Left>0.44667in</Left>
               <Height>0.5in</Height>
               <Width>0.5in</Width>
               <ZIndex>1</ZIndex>

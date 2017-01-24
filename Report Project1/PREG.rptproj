@@ -14,12 +14,28 @@
       <FullPath>AllProductPackagesReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>AllProducts_ProductInformationReport.rdl</Name>
+      <FullPath>AllProducts_ProductInformationReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>AllProductsManufacturingChainReport.rdl</Name>
       <FullPath>AllProductsManufacturingChainReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>DeletionOfApproval.rdl</Name>
       <FullPath>DeletionOfApproval.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>ListOfRenewals.rdl</Name>
+      <FullPath>ListOfRenewals.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>MaHolder_ApprovedProductsReport.rdl</Name>
+      <FullPath>MaHolder_ApprovedProductsReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>MaHolder_NonApprovedProductsReport.rdl</Name>
+      <FullPath>MaHolder_NonApprovedProductsReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>MaHolderReport.rdl</Name>
@@ -30,28 +46,20 @@
       <FullPath>ProductNamesReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>ProductsReport.rdl</Name>
-      <FullPath>ProductsReport.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>AllProducts_ProductInformationReport.rdl</Name>
-      <FullPath>AllProducts_ProductInformationReport.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>ProductsPackagesSubReport.rdl</Name>
       <FullPath>ProductsPackagesSubReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>ListOfRenewals.rdl</Name>
-      <FullPath>ListOfRenewals.rdl</FullPath>
+      <Name>ProductsReport.rdl</Name>
+      <FullPath>ProductsReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>PsurListReport.rdl</Name>
       <FullPath>PsurListReport.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>MaHolder_ApprovedProductsReport.rdl</Name>
-      <FullPath>MaHolder_ApprovedProductsReport.rdl</FullPath>
+      <Name>MaHolder_NonActiveProductsReport.rdl</Name>
+      <FullPath>MaHolder_NonActiveProductsReport.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
