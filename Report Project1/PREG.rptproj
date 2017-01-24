@@ -61,6 +61,10 @@
       <Name>MaHolder_NonActiveProductsReport.rdl</Name>
       <FullPath>MaHolder_NonActiveProductsReport.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>NotMarketedProductsReport.rdl</Name>
+      <FullPath>NotMarketedProductsReport.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>

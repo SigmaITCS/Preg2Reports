@@ -10,29 +10,39 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="DataSet">
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
-        <CommandText> select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
-	   p.Strength,CAST(ps.ApprovalDate as Date) as [ApprovalDate], app.Name as [ApprovedProcedures], CAST(ps.ApprovalCease as Date) as[Sunset],  ps.MtNumber as [MaNo] , 
-         Responsible.Id   as [ResponsibleId]      
- 
-  from PREG4.dbo.Products p
-   join [PREG4].[dbo].ProductSpecifications ps
-    on  p.Id= ps.ProductId
-  join PREG4.dbo.ProductNames names
-    on p.ProductNameId= names.Id
-  left join  PREG4.dbo.DosageForms df
-    on p.DosageFormId= df.Id
-  left join  PREG4.dbo.MarketAuthHolders Ma
-	 on ps.MarketAuthHolderId= ma.Id
-  left join PREG4.dbo.ApprovalProcedures App
-  on app.Id= p.ApprovalProcedureId
-  	 left join PREG4.dbo.ResponsibleManagers Responsible
-   on Responsible.Id= p.ResponsibleManagerId
+        <QueryParameters>
+          <QueryParameter Name="@ToDate">
+            <Value>=Parameters!ToDate.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT p.aspnumber                         AS[Asp no], 
+       names.NAME                          AS [Product Name], 
+       p.strength, 
+       ps.land                             AS [Country], 
+       Responsible.NAME                    AS [Responsible], 
+       Responsible.id					  AS [ResponsibleId],
+       Cast(ps.approvaldate AS DATE)       AS [ApprovalDate], 
+       Cast(ps.launchdate AS DATE)         AS [StartMarketingDate], 
+       Cast(ps.lanseringsdatumend AS DATE) AS [EndMarketingDate] 
+FROM   preg4.dbo.products p 
+       JOIN [PREG4].[dbo].productspecifications ps 
+         ON p.id = ps.productid 
+       JOIN preg4.dbo.productnames names 
+         ON p.productnameid = names.id 
+       LEFT JOIN preg4.dbo.dosageforms df 
+              ON p.dosageformid = df.id 
+       LEFT JOIN preg4.dbo.marketauthholders Ma 
+              ON ps.marketauthholderid = ma.id 
+       LEFT JOIN preg4.dbo.approvalprocedures App 
+              ON app.id = p.approvalprocedureid 
+       LEFT JOIN preg4.dbo.responsiblemanagers Responsible 
+              ON Responsible.id = p.responsiblemanagerid 
 
-where ISNULL(ps.ApprovalDate,'')!=''
- order by ps.ApprovalDate, ps.Land</CommandText>
+where ps.LanseringsDatumEnd &lt;= @ToDate
+ order by ps.LanseringsDatumEnd</CommandText>
       </Query>
       <Fields>
         <Field Name="Asp_no">
@@ -47,33 +57,29 @@ where ISNULL(ps.ApprovalDate,'')!=''
           <DataField>Country</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Pharmacetical_form">
-          <DataField>Pharmacetical form</DataField>
+        <Field Name="Strength">
+          <DataField>strength</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Strength">
-          <DataField>Strength</DataField>
+        <Field Name="Responsible">
+          <DataField>Responsible</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ResponsibleId">
+          <DataField>ResponsibleId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="ApprovalDate">
           <DataField>ApprovalDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="MaNo">
-          <DataField>MaNo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ApprovedProcedures">
-          <DataField>ApprovedProcedures</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Sunset">
-          <DataField>Sunset</DataField>
+        <Field Name="StartMarketingDate">
+          <DataField>StartMarketingDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="ResponsibleId">
-          <DataField>ResponsibleId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+        <Field Name="EndMarketingDate">
+          <DataField>EndMarketingDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -124,78 +130,34 @@ where ISNULL(ps.ApprovalDate,'')!=''
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.95313in</Width>
+                  <Width>1.91792in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.91792in</Width>
+                  <Width>1.27083in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.18623in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.40105in</Width>
+                  <Width>1.54688in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.22917in</Width>
+                  <Width>1.88146in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.13542in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.65625in</Width>
+                  <Width>2.69792in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.20834in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>2.71875in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>2.51042in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.25125in</Height>
+                  <Height>0.35889in</Height>
                   <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox2">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Asp no</Value>
-                                  <Style>
-                                    <FontFamily />
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox2</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <BackgroundColor>CornflowerBlue</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox3">
@@ -214,10 +176,52 @@ where ISNULL(ps.ApprovalDate,'')!=''
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                            </Border>
+                            <BottomBorder>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <BackgroundColor>CornflowerBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox13">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Strength</Value>
+                                  <Style>
+                                    <FontFamily />
+                                    <FontSize>11pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox13</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -252,7 +256,9 @@ where ISNULL(ps.ApprovalDate,'')!=''
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox7</rd:DefaultName>
@@ -281,7 +287,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Pharmacetical form</Value>
+                                  <Value>Asp no</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -314,14 +320,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox10">
+                        <Textbox Name="Textbox16">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Strength</Value>
+                                  <Value>Responsible</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -331,11 +337,11 @@ where ISNULL(ps.ApprovalDate,'')!=''
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox10</rd:DefaultName>
+                          <rd:DefaultName>Textbox16</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -394,14 +400,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox12">
+                        <Textbox Name="Textbox18">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Ma No</Value>
+                                  <Value>Start Marketing Date</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -415,7 +421,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox12</rd:DefaultName>
+                          <rd:DefaultName>Textbox18</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -434,14 +440,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox4">
+                        <Textbox Name="Textbox20">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Approved Procedures</Value>
+                                  <Value>End Marketing Date</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -455,87 +461,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox4</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <BackgroundColor>CornflowerBlue</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox8">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Sunset  clause(approval expires)</Value>
-                                  <Style>
-                                    <FontFamily />
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox8</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <BackgroundColor>CornflowerBlue</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox14">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Responsible Id</Value>
-                                  <Style>
-                                    <FontFamily />
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <rd:DefaultName>Textbox20</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -555,28 +481,30 @@ where ISNULL(ps.ApprovalDate,'')!=''
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.24125in</Height>
+                  <Height>0.30375in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Asp_no">
+                        <Textbox Name="Product_Name1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Asp_no.Value</Value>
+                                  <Value>=Fields!Product_Name.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Asp_no</rd:DefaultName>
+                          <rd:DefaultName>Product_Name1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -595,24 +523,26 @@ where ISNULL(ps.ApprovalDate,'')!=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Product_Name1">
+                        <Textbox Name="Strength1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Product_Name.Value</Value>
+                                  <Value>=Fields!Strength.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Product_Name1</rd:DefaultName>
+                          <rd:DefaultName>Strength1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -620,7 +550,6 @@ where ISNULL(ps.ApprovalDate,'')!=''
                             <BottomBorder>
                               <Style>Solid</Style>
                             </BottomBorder>
-                            <FontFamily />
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -645,7 +574,9 @@ where ISNULL(ps.ApprovalDate,'')!=''
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Country</rd:DefaultName>
@@ -667,14 +598,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Pharmacetical_form">
+                        <Textbox Name="Asp_no">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Pharmacetical_form.Value</Value>
+                                  <Value>=Fields!Asp_no.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -686,7 +617,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Pharmacetical_form</rd:DefaultName>
+                          <rd:DefaultName>Asp_no</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -705,14 +636,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Strength">
+                        <Textbox Name="Responsible">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Strength.Value</Value>
+                                  <Value>=Fields!Responsible.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -720,11 +651,11 @@ where ISNULL(ps.ApprovalDate,'')!=''
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Strength</rd:DefaultName>
+                          <rd:DefaultName>Responsible</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -779,14 +710,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="MaNo">
+                        <Textbox Name="StartMarketingDate">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!MaNo.Value</Value>
+                                  <Value>=Fields!StartMarketingDate.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -798,7 +729,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>MaNo</rd:DefaultName>
+                          <rd:DefaultName>StartMarketingDate</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -816,14 +747,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="ApprovedProcedures">
+                        <Textbox Name="EndMarketingDate">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ApprovedProcedures.Value</Value>
+                                  <Value>=Fields!EndMarketingDate.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -835,81 +766,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>ApprovedProcedures</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Sunset">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Sunset.Value</Value>
-                                  <Style>
-                                    <FontFamily />
-                                    <Color>#333333</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Sunset</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="ResponsibleId">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!ResponsibleId.Value</Value>
-                                  <Style>
-                                    <FontFamily />
-                                    <Color>#333333</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>ResponsibleId</rd:DefaultName>
+                          <rd:DefaultName>EndMarketingDate</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -931,8 +788,6 @@ where ISNULL(ps.ApprovalDate,'')!=''
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
-                <TablixMember />
-                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -963,7 +818,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>DataSet1</DataSetName>
+            <DataSetName>DataSet</DataSetName>
             <Filters>
               <Filter>
                 <FilterExpression>=Fields!ResponsibleId.Value</FilterExpression>
@@ -972,28 +827,25 @@ where ISNULL(ps.ApprovalDate,'')!=''
                   <FilterValue>=Parameters!ResponsibleId.Value</FilterValue>
                 </FilterValues>
               </Filter>
-              <Filter>
-                <FilterExpression>=Fields!Country.Value</FilterExpression>
-                <Operator>In</Operator>
-                <FilterValues>
-                  <FilterValue>=Parameters!Country.Value</FilterValue>
-                </FilterValues>
-              </Filter>
             </Filters>
-            <Top>0.09667in</Top>
-            <Left>1.08163cm</Left>
-            <Height>0.4925in</Height>
-            <Width>18.40626in</Width>
-            <Style />
+            <Top>0.18in</Top>
+            <Left>1.13454cm</Left>
+            <Height>0.66264in</Height>
+            <Width>15.14708in</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
           </Tablix>
         </ReportItems>
-        <Height>0.71417in</Height>
+        <Height>0.985in</Height>
         <Style />
       </Body>
       <Width>19.28001in</Width>
       <Page>
         <PageHeader>
-          <Height>2.19604cm</Height>
+          <Height>2.38125cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1004,7 +856,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PREG 2.0  </Value>
+                      <Value>PREG 2.0 - </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>
@@ -1012,7 +864,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>MA-Holder -All products including non active</Value>
+                      <Value>Not marketed products</Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>20pt</FontSize>
@@ -1026,8 +878,8 @@ where ISNULL(ps.ApprovalDate,'')!=''
               <rd:DefaultName>textbox1</rd:DefaultName>
               <Top>0.58208cm</Top>
               <Left>2.88396cm</Left>
-              <Height>0.56597in</Height>
-              <Width>7.99875in</Width>
+              <Height>0.60417in</Height>
+              <Width>6.74875in</Width>
               <Style>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
@@ -1107,52 +959,6 @@ where ISNULL(ps.ApprovalDate,'')!=''
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="Country">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>Sweden</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>ReportParameter1</Prompt>
-      <ValidValues>
-        <ParameterValues>
-          <ParameterValue>
-            <Value>Sweden</Value>
-            <Label>Sweden</Label>
-          </ParameterValue>
-          <ParameterValue>
-            <Value>Denmark</Value>
-            <Label>Denmark</Label>
-          </ParameterValue>
-          <ParameterValue>
-            <Value>Norway</Value>
-            <Label>Norway</Label>
-          </ParameterValue>
-          <ParameterValue>
-            <Value>Finland</Value>
-            <Label>Finland</Label>
-          </ParameterValue>
-          <ParameterValue>
-            <Value>Iceland</Value>
-            <Label>Iceland</Label>
-          </ParameterValue>
-          <ParameterValue>
-            <Value>Estonia</Value>
-            <Label>Estonia</Label>
-          </ParameterValue>
-          <ParameterValue>
-            <Value>Latvia</Value>
-            <Label>Latvia</Label>
-          </ParameterValue>
-          <ParameterValue>
-            <Value>Lithuania</Value>
-            <Label>Lithuania</Label>
-          </ParameterValue>
-        </ParameterValues>
-      </ValidValues>
-      <MultiValue>true</MultiValue>
-    </ReportParameter>
     <ReportParameter Name="ResponsibleId">
       <DataType>Integer</DataType>
       <DefaultValue>
@@ -1171,6 +977,12 @@ where ISNULL(ps.ApprovalDate,'')!=''
       </ValidValues>
       <MultiValue>true</MultiValue>
     </ReportParameter>
+    <ReportParameter Name="ToDate">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -1178,14 +990,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
       <NumberOfRows>2</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>Country</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>ResponsibleId</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>ToDate</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

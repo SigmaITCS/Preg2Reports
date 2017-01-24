@@ -1000,7 +1000,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>MA-Holder -Non-approved Products</Value>
+                      <Value>MA-Holder -Non approved Products(pending)</Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>20pt</FontSize>
@@ -1015,7 +1015,7 @@ where ISNULL(ps.ApprovalDate,'')=''
               <Top>0.58208cm</Top>
               <Left>2.88396cm</Left>
               <Height>0.5in</Height>
-              <Width>6.5in</Width>
+              <Width>7.97792in</Width>
               <Style>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
