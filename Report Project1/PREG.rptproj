@@ -49,6 +49,10 @@
       <Name>PsurListReport.rdl</Name>
       <FullPath>PsurListReport.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>MaHolder_ApprovedProductsReport.rdl</Name>
+      <FullPath>MaHolder_ApprovedProductsReport.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>

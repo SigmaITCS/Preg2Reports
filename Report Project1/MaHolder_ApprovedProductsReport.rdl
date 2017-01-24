@@ -13,17 +13,9 @@
     <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
-        <QueryParameters>
-          <QueryParameter Name="@FromDate">
-            <Value>=Parameters!FromDate.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@ToDate">
-            <Value>=Parameters!ToDate.Value</Value>
-          </QueryParameter>
-        </QueryParameters>
-        <CommandText>select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
-	   p.Strength, ps.MtNumber as [MaNo] , CAST(ps.PsurPeriodStart AS date) as [PSUR from], CAST(ps.PsurPeriodEnd AS DATE) as [PSUR end]
-        ,Responsible.Id as [ResponsibleId], Responsible.Name as [Responsible] , Responsible.Id        
+        <CommandText> select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
+	   p.Strength,ps.ApprovalDate as [ApprovalDate], app.Name as [ApprovedProcedures], ps.ApprovalCease as[Sunset],  ps.MtNumber as [MaNo] , 
+         Responsible.Id   as [ResponsibleId]      
  
   from PREG4.dbo.Products p
    join [PREG4].[dbo].ProductSpecifications ps
@@ -34,14 +26,13 @@
     on p.DosageFormId= df.Id
   left join  PREG4.dbo.MarketAuthHolders Ma
 	 on ps.MarketAuthHolderId= ma.Id
-  left join PREG4.dbo.TherapeuticAreas TA
-    on names.TherapeuticAreaId= TA.id 
-	 left join PREG4.dbo.ResponsibleManagers Responsible
+  left join PREG4.dbo.ApprovalProcedures App
+  on app.Id= p.ApprovalProcedureId
+  	 left join PREG4.dbo.ResponsibleManagers Responsible
    on Responsible.Id= p.ResponsibleManagerId
 
-   where  ( ps.PsurPeriodStart&gt;= @FromDate OR @FromDate  IS NULL)
-  and  ( ps.PsurPeriodEnd&lt;= @ToDate  OR @ToDate IS NULL )
-order by ps.PsurPeriodStart</CommandText>
+where ISNULL(ps.ApprovalDate,'')!=''
+ order by ps.ApplicationDate</CommandText>
       </Query>
       <Fields>
         <Field Name="Asp_no">
@@ -64,28 +55,24 @@ order by ps.PsurPeriodStart</CommandText>
           <DataField>Strength</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ApprovalDate">
+          <DataField>ApprovalDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="MaNo">
           <DataField>MaNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PSUR_from">
-          <DataField>PSUR from</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+        <Field Name="ApprovedProcedures">
+          <DataField>ApprovedProcedures</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PSUR_end">
-          <DataField>PSUR end</DataField>
+        <Field Name="Sunset">
+          <DataField>Sunset</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="ResponsibleId">
           <DataField>ResponsibleId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Responsible">
-          <DataField>Responsible</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Id">
-          <DataField>Id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
@@ -152,16 +139,19 @@ order by ps.PsurPeriodStart</CommandText>
                   <Width>1.22917in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.97917in</Width>
+                  <Width>2.13542in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.98959in</Width>
+                  <Width>1.25in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.20834in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.86458in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.61459in</Width>
+                  <Width>1in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -360,6 +350,44 @@ order by ps.PsurPeriodStart</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox11">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Approval Date</Value>
+                                  <Style>
+                                    <FontFamily />
+                                    <FontSize>11pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox11</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                            </Border>
+                            <BottomBorder>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <BackgroundColor>CornflowerBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox12">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -405,7 +433,7 @@ order by ps.PsurPeriodStart</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>PSUR from</Value>
+                                  <Value>Approved Procedures</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -445,7 +473,7 @@ order by ps.PsurPeriodStart</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>PSUR end</Value>
+                                  <Value>Sunset</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -485,7 +513,7 @@ order by ps.PsurPeriodStart</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Responsible</Value>
+                                  <Value>Responsible Id</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -702,6 +730,41 @@ order by ps.PsurPeriodStart</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="ApprovalDate">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!ApprovalDate.Value</Value>
+                                  <Style>
+                                    <FontFamily />
+                                    <Color>#333333</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ApprovalDate</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                            </Border>
+                            <BottomBorder>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="MaNo">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -737,14 +800,14 @@ order by ps.PsurPeriodStart</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PSUR_from">
+                        <Textbox Name="ApprovedProcedures">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PSUR_from.Value</Value>
+                                  <Value>=Fields!ApprovedProcedures.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -756,7 +819,7 @@ order by ps.PsurPeriodStart</CommandText>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PSUR_from</rd:DefaultName>
+                          <rd:DefaultName>ApprovedProcedures</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -774,14 +837,14 @@ order by ps.PsurPeriodStart</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PSUR_end">
+                        <Textbox Name="Sunset">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PSUR_end.Value</Value>
+                                  <Value>=Fields!Sunset.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -793,7 +856,7 @@ order by ps.PsurPeriodStart</CommandText>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PSUR_end</rd:DefaultName>
+                          <rd:DefaultName>Sunset</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -811,14 +874,14 @@ order by ps.PsurPeriodStart</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Responsible">
+                        <Textbox Name="ResponsibleId">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Responsible.Value</Value>
+                                  <Value>=Fields!ResponsibleId.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -830,7 +893,7 @@ order by ps.PsurPeriodStart</CommandText>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Responsible</rd:DefaultName>
+                          <rd:DefaultName>ResponsibleId</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -852,6 +915,7 @@ order by ps.PsurPeriodStart</CommandText>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -892,11 +956,18 @@ order by ps.PsurPeriodStart</CommandText>
                   <FilterValue>=Parameters!ResponsibleId.Value</FilterValue>
                 </FilterValues>
               </Filter>
+              <Filter>
+                <FilterExpression>=Fields!Country.Value</FilterExpression>
+                <Operator>Equal</Operator>
+                <FilterValues>
+                  <FilterValue>=Parameters!Country.Value</FilterValue>
+                </FilterValues>
+              </Filter>
             </Filters>
             <Top>0.09667in</Top>
             <Left>0.49953cm</Left>
             <Height>0.43in</Height>
-            <Width>15.31898in</Width>
+            <Width>17.3294in</Width>
             <Style />
           </Tablix>
         </ReportItems>
@@ -917,10 +988,18 @@ order by ps.PsurPeriodStart</CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PREG 2.0 - PSURList</Value>
+                      <Value>PREG 2.0 - </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>MA-Holder -Approved Products</Value>
+                      <Style>
+                        <FontFamily>Segoe UI Light</FontFamily>
+                        <FontSize>20pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -932,7 +1011,7 @@ order by ps.PsurPeriodStart</CommandText>
               <Top>0.58208cm</Top>
               <Left>2.24896cm</Left>
               <Height>0.5in</Height>
-              <Width>5in</Width>
+              <Width>6.5in</Width>
               <Style>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
@@ -1012,17 +1091,52 @@ order by ps.PsurPeriodStart</CommandText>
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="FromDate">
+    <ReportParameter Name="Country">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>Sweden</Value>
+        </Values>
+      </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="ToDate">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Sweden</Value>
+            <Label>Sweden</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Denmark</Value>
+            <Label>Denmark</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Norway</Value>
+            <Label>Norway</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Finland</Value>
+            <Label>Finland</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Iceland</Value>
+            <Label>Iceland</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Estonia</Value>
+            <Label>Estonia</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Latvia</Value>
+            <Label>Latvia</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Lithuania</Value>
+            <Label>Lithuania</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="ResponsibleId">
       <DataType>Integer</DataType>
@@ -1049,14 +1163,9 @@ order by ps.PsurPeriodStart</CommandText>
       <NumberOfRows>2</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>FromDate</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>ToDate</ParameterName>
+          <ParameterName>Country</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
