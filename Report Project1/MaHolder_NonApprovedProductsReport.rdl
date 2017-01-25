@@ -120,35 +120,35 @@ where ISNULL(ps.ApprovalDate,'')=''
     <ReportSection>
       <Body>
         <ReportItems>
-          <Tablix Name="table1">
+          <Tablix Name="table2">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.95313in</Width>
+                  <Width>0.75521in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.91792in</Width>
+                  <Width>1.44917in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.18623in</Width>
+                  <Width>0.9154in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.40105in</Width>
+                  <Width>1.85938in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.22917in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.13542in</Width>
+                  <Width>1.59375in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.65625in</Width>
+                  <Width>0.65625in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.20834in</Width>
+                  <Width>1.66667in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.86458in</Width>
+                  <Width>1.3125in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -157,7 +157,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox2">
+                        <Textbox Name="Textbox9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -195,7 +195,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox3">
+                        <Textbox Name="Textbox13">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -233,7 +233,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox7">
+                        <Textbox Name="Textbox14">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -271,7 +271,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox5">
+                        <Textbox Name="Textbox15">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -309,7 +309,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox10">
+                        <Textbox Name="Textbox16">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -347,7 +347,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox11">
+                        <Textbox Name="Textbox17">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -385,7 +385,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox12">
+                        <Textbox Name="Textbox18">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -425,7 +425,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox4">
+                        <Textbox Name="Textbox19">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -465,7 +465,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox8">
+                        <Textbox Name="Textbox20">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -510,7 +510,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Asp_no">
+                        <Textbox Name="Asp_no2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -546,7 +546,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Product_Name1">
+                        <Textbox Name="Product_Name2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -582,7 +582,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Country">
+                        <Textbox Name="Country2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -618,7 +618,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Pharmacetical_form">
+                        <Textbox Name="Pharmacetical_form2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -654,7 +654,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Strength">
+                        <Textbox Name="Strength2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -689,7 +689,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="ApprovalDate">
+                        <Textbox Name="ApprovalDate2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -724,7 +724,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="MaNo">
+                        <Textbox Name="MaNo2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -761,7 +761,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="ApprovedProcedures">
+                        <Textbox Name="ApprovedProcedures2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -798,7 +798,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Sunset">
+                        <Textbox Name="Sunset2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -858,7 +858,7 @@ where ISNULL(ps.ApprovalDate,'')=''
                   <KeepTogether>true</KeepTogether>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="table1_Details_Group">
+                  <Group Name="table1_Details_Group2">
                     <DataElementName>Detail</DataElementName>
                   </Group>
                   <TablixMembers>
@@ -887,20 +887,20 @@ where ISNULL(ps.ApprovalDate,'')=''
                 </FilterValues>
               </Filter>
             </Filters>
-            <Top>0.09667in</Top>
-            <Left>1.08163cm</Left>
+            <Top>0.25667in</Top>
+            <Left>1.87536cm</Left>
             <Height>0.4925in</Height>
-            <Width>16.55209in</Width>
+            <Width>11.4375in</Width>
             <Style />
           </Tablix>
         </ReportItems>
-        <Height>0.71417in</Height>
+        <Height>1.50584in</Height>
         <Style />
       </Body>
-      <Width>19.28001in</Width>
+      <Width>12.47793in</Width>
       <Page>
         <PageHeader>
-          <Height>2.06375cm</Height>
+          <Height>2.16958cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -932,7 +932,7 @@ where ISNULL(ps.ApprovalDate,'')=''
               </Paragraphs>
               <rd:DefaultName>textbox1</rd:DefaultName>
               <Top>0.58208cm</Top>
-              <Left>2.88396cm</Left>
+              <Left>2.24896cm</Left>
               <Height>0.5in</Height>
               <Width>7.97792in</Width>
               <Style>
@@ -947,7 +947,7 @@ where ISNULL(ps.ApprovalDate,'')=''
               <Value>AstraZeneca</Value>
               <Sizing>FitProportional</Sizing>
               <Top>0.22917in</Top>
-              <Left>0.44667in</Left>
+              <Left>0.19667in</Left>
               <Height>0.5in</Height>
               <Width>0.5in</Width>
               <ZIndex>1</ZIndex>
@@ -1005,6 +1005,8 @@ where ISNULL(ps.ApprovalDate,'')=''
             </Border>
           </Style>
         </PageFooter>
+        <PageHeight>8.5in</PageHeight>
+        <PageWidth>15in</PageWidth>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>
         <TopMargin>1in</TopMargin>

@@ -139,21 +139,21 @@ where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNUL
                   <Width>1.22917in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.69792in</Width>
+                  <Width>1.59375in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78125in</Width>
+                  <Width>0.65625in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.66667in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.86458in</Width>
+                  <Width>1.65625in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.25125in</Height>
+                  <Height>0.27903in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -887,17 +887,17 @@ where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNUL
                 </FilterValues>
               </Filter>
             </Filters>
-            <Top>0.09667in</Top>
-            <Left>0.49954cm</Left>
-            <Height>0.4925in</Height>
-            <Width>12.21875in</Width>
+            <Top>0.19389in</Top>
+            <Left>1.905cm</Left>
+            <Height>0.52028in</Height>
+            <Width>11.78125in</Width>
             <Style />
           </Tablix>
         </ReportItems>
         <Height>0.71417in</Height>
         <Style />
       </Body>
-      <Width>12.93626in</Width>
+      <Width>12.88542in</Width>
       <Page>
         <PageHeader>
           <Height>2.06375cm</Height>
@@ -911,7 +911,15 @@ where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNUL
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PREG 2.0 - </Value>
+                      <Value>PREG 2.0</Value>
+                      <Style>
+                        <FontFamily>Segoe UI Light</FontFamily>
+                        <FontSize>18pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve"> </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>
