@@ -21,38 +21,56 @@
             <Value>=Parameters!AspNo.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText> select Mc.IsActiveIngredient, MC.Manufacturer, Rm.name, p.Strength,names.Name as[ProductName], p.AspNumber
-           from [PREG4].[dbo].[Products] P 
-           join [PREG4].[dbo].ManufacturingChains Mc
-		      on  p.Id= Mc.ProductId
-		   join PREG4.dbo.ResponsibleManagers Rm
-		    on  P.ResponsibleManagerId= Rm.id
-			 join  [PREG4].[dbo].ProductNames names on p.ProductNameId = Names.Id 
-where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo  IS NULL)</CommandText>
+        <CommandText>SELECT Mc.isactiveingredient, p.Id,
+       MC.manufacturer, 
+       Rm.NAME, 
+       p.strength, 
+       names.NAME              AS[ProductName], 
+       p.aspnumber, 
+       pharmaceuticalform.NAME AS [Pharmaceuticalform] 
+FROM   [PREG4].[dbo].[products] P 
+       JOIN [PREG4].[dbo].manufacturingchains Mc 
+         ON p.id = Mc.productid 
+       JOIN preg4.dbo.responsiblemanagers Rm 
+         ON P.responsiblemanagerid = Rm.id 
+       JOIN [PREG4].[dbo].productnames names 
+         ON p.productnameid = Names.id 
+       JOIN preg4.dbo.dosageforms pharmaceuticalform 
+         ON p.dosageformid = pharmaceuticalform.id 
+
+where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspNo  IS NULL)</CommandText>
       </Query>
       <Fields>
-        <Field Name="IsActiveIngredient">
-          <DataField>IsActiveIngredient</DataField>
+        <Field Name="isactiveingredient">
+          <DataField>isactiveingredient</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
-        <Field Name="Manufacturer">
-          <DataField>Manufacturer</DataField>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="manufacturer">
+          <DataField>manufacturer</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="name">
-          <DataField>name</DataField>
+        <Field Name="NAME">
+          <DataField>NAME</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Strength">
-          <DataField>Strength</DataField>
+        <Field Name="strength">
+          <DataField>strength</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ProductName">
           <DataField>ProductName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="AspNumber">
-          <DataField>AspNumber</DataField>
+        <Field Name="aspnumber">
+          <DataField>aspnumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Pharmaceuticalform">
+          <DataField>Pharmaceuticalform</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -206,7 +224,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!IsActiveIngredient.Value = true, Fields!Manufacturer.Value, "")</Value>
+                                  <Value>=IIF(Fields!isactiveingredient.Value = true, Fields!manufacturer.Value, "")</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -259,7 +277,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!IsActiveIngredient.Value = false, Fields!Manufacturer.Value, "")</Value>
+                                  <Value>=IIF(Fields!isactiveingredient.Value = false, Fields!manufacturer.Value, "")</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -334,7 +352,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
-            <Top>0.58973in</Top>
+            <Top>0.63139in</Top>
             <Left>2.24896cm</Left>
             <Height>0.97167in</Height>
             <Width>10.80209in</Width>
@@ -358,8 +376,8 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>textbox1</rd:DefaultName>
-            <Top>0.2279cm</Top>
-            <Left>2.24896cm</Left>
+            <Top>0.19262cm</Top>
+            <Left>2.24897cm</Left>
             <Height>0.5in</Height>
             <Width>10.80209in</Width>
             <ZIndex>1</ZIndex>
@@ -380,14 +398,15 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
                     <Value>Release responsibility: </Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
-                      <FontSize>9pt</FontSize>
+                      <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=First(Fields!name.Value, "DataSet1")</Value>
+                    <Value>=First(Fields!NAME.Value, "DataSet1")</Value>
                     <Style>
-                      <FontSize>9pt</FontSize>
+                      <FontSize>11pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -395,7 +414,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>0.28417in</Top>
+            <Top>0.15917in</Top>
             <Left>0.88542in</Left>
             <Height>0.25in</Height>
             <Width>3.39583in</Width>
@@ -411,13 +430,13 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>1.57528in</Height>
+        <Height>1.60306in</Height>
         <Style />
       </Body>
       <Width>12.68626in</Width>
       <Page>
         <PageHeader>
-          <Height>3.16338cm</Height>
+          <Height>3.79838cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -471,8 +490,8 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
               <rd:DefaultName>textbox1</rd:DefaultName>
               <Top>0.56304cm</Top>
               <Left>2.24896cm</Left>
-              <Height>0.93695in</Height>
-              <Width>10.11334in</Width>
+              <Height>0.63487in</Height>
+              <Width>10.80209in</Width>
               <Style>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
@@ -502,17 +521,18 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Product name: </Value>
+                      <Value>Product name:  </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=First(Fields!ProductName.Value, "DataSet1")</Value>
                       <Style>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -520,51 +540,11 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox146</rd:DefaultName>
-              <Top>0.97334in</Top>
-              <Left>0.88542in</Left>
-              <Height>0.19917in</Height>
+              <Top>0.91209in</Top>
+              <Left>0.875in</Left>
+              <Height>0.29514in</Height>
               <Width>2.08209in</Width>
               <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox148">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Product name: </Value>
-                      <Style>
-                        <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=First(Fields!ProductName.Value, "DataSet1")</Value>
-                      <Style>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox146</rd:DefaultName>
-              <Top>0.94695in</Top>
-              <Left>3.86667in</Left>
-              <Height>0.19917in</Height>
-              <Width>2.08209in</Width>
-              <ZIndex>3</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -582,29 +562,118 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Asp no: </Value>
+                      <Value>Pharmaceutical form : </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>=First(Fields!AspNumber.Value, "DataSet1")</Value>
+                      <Value>=First(Fields!Pharmaceuticalform.Value, "DataSet1")</Value>
                       <Style>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox146</rd:DefaultName>
-              <Top>0.95945in</Top>
-              <Left>7.34375in</Left>
-              <Height>0.19917in</Height>
-              <Width>1.68626in</Width>
+              <rd:DefaultName>Textbox149</rd:DefaultName>
+              <Top>0.91209in</Top>
+              <Left>3.39958in</Left>
+              <Height>0.29514in</Height>
+              <Width>3.1473in</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox148">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Strength : </Value>
+                      <Style>
+                        <FontFamily>Segoe UI Light</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=First(Fields!strength.Value, "DataSet1")</Value>
+                      <Style>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox148</rd:DefaultName>
+              <Top>0.91209in</Top>
+              <Left>6.92188in</Left>
+              <Height>0.29514in</Height>
+              <Width>2.51042in</Width>
               <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox149">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Asp no : </Value>
+                      <Style>
+                        <FontFamily>Segoe UI Light</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=First(Fields!aspnumber.Value, "DataSet1")</Value>
+                      <Style>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox149</rd:DefaultName>
+              <Top>0.91209in</Top>
+              <Left>9.60293in</Left>
+              <Height>0.29514in</Height>
+              <Width>2.08458in</Width>
+              <ZIndex>5</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -642,8 +711,8 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox6</rd:DefaultName>
-              <Top>0.64917in</Top>
-              <Left>7.88417in</Left>
+              <Top>0.75in</Top>
+              <Left>6.3425in</Left>
               <Height>0.25in</Height>
               <Width>1in</Width>
               <Style>
@@ -663,6 +732,8 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
             </Border>
           </Style>
         </PageFooter>
+        <PageHeight>8.5in</PageHeight>
+        <PageWidth>15in</PageWidth>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>
         <TopMargin>1in</TopMargin>
@@ -676,12 +747,13 @@ where (p.Id=@ProductId OR @ProductId IS NULL) OR ( P.AspNumber= @AspNo OR @AspNo
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
+      <Prompt>AspNo</Prompt>
     </ReportParameter>
     <ReportParameter Name="ProductId">
-      <DataType>Integer</DataType>
+      <DataType>String</DataType>
       <Nullable>true</Nullable>
-      <Prompt>ReportParameter1</Prompt>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ProductId</Prompt>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
