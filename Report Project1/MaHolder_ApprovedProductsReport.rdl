@@ -14,8 +14,9 @@
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
         <CommandText> select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
-	   p.Strength,CAST(ps.ApprovalDate as Date) as [ApprovalDate], app.Name as [ApprovedProcedures], CAST(ps.ApprovalCease as Date) as[Sunset],  ps.MtNumber as [MaNo] , 
-         Responsible.Id   as [ResponsibleId]      
+	   p.Strength,
+	   CONVERT(VARCHAR, CAST(ps.ApprovalDate as Date),120) as [ApprovalDate], app.Name as [ApprovedProcedures], CONVERT(VARCHAR,  CAST(ps.ApprovalCease as Date),120) as[Sunset],  ps.MtNumber as [MaNo] , 
+         Responsible.Id   as [ResponsibleId]  
  
   from PREG4.dbo.Products p
    join [PREG4].[dbo].ProductSpecifications ps
@@ -57,7 +58,7 @@ where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNUL
         </Field>
         <Field Name="ApprovalDate">
           <DataField>ApprovalDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="MaNo">
           <DataField>MaNo</DataField>
@@ -69,7 +70,7 @@ where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNUL
         </Field>
         <Field Name="Sunset">
           <DataField>Sunset</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ResponsibleId">
           <DataField>ResponsibleId</DataField>

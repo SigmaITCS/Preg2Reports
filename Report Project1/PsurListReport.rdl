@@ -21,10 +21,21 @@
             <Value>=Parameters!ToDate.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
-	   p.Strength, ps.MtNumber as [MaNo] , CAST(ps.PsurPeriodStart AS date) as [PSUR from], CAST(ps.PsurPeriodEnd AS DATE) as [PSUR end]
-        ,Responsible.Id as [ResponsibleId], Responsible.Name as [Responsible] , Responsible.Id        
- 
+        <CommandText> SELECT p.aspnumber                                             AS[Aspno], 
+       names.NAME                                              AS [ProductName] 
+       , 
+       ps.land                                                 AS 
+       [Country], 
+       df.NAME                                                 AS 
+       [Pharmacetical form], 
+       p.strength, 
+       ps.mtnumber                                             AS [MaNo], 
+       CONVERT(VARCHAR, Cast(ps.psurperiodstart AS DATE), 120) AS [PSURfrom], 
+       CONVERT(VARCHAR, Cast(ps.psurperiodend AS DATE), 120)   AS [PSURend], 
+       Responsible.id                                          AS 
+       [ResponsibleId], 
+       Responsible.NAME                                        AS [Responsible], 
+       Responsible.id 
   from PREG4.dbo.Products p
    join [PREG4].[dbo].ProductSpecifications ps
     on  p.Id= ps.ProductId
@@ -44,12 +55,12 @@
 order by ps.PsurPeriodStart</CommandText>
       </Query>
       <Fields>
-        <Field Name="Asp_no">
-          <DataField>Asp no</DataField>
+        <Field Name="Aspno">
+          <DataField>Aspno</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Product_Name">
-          <DataField>Product Name</DataField>
+        <Field Name="ProductName">
+          <DataField>ProductName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Country">
@@ -61,20 +72,20 @@ order by ps.PsurPeriodStart</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Strength">
-          <DataField>Strength</DataField>
+          <DataField>strength</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="MaNo">
           <DataField>MaNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PSUR_from">
-          <DataField>PSUR from</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+        <Field Name="PSURfrom">
+          <DataField>PSURfrom</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PSUR_end">
-          <DataField>PSUR end</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+        <Field Name="PSURend">
+          <DataField>PSURend</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ResponsibleId">
           <DataField>ResponsibleId</DataField>
@@ -85,7 +96,7 @@ order by ps.PsurPeriodStart</CommandText>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Id">
-          <DataField>Id</DataField>
+          <DataField>id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
@@ -140,19 +151,19 @@ order by ps.PsurPeriodStart</CommandText>
                   <Width>0.95313in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.91792in</Width>
+                  <Width>1.73436in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.36979in</Width>
+                  <Width>0.98437in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.40105in</Width>
+                  <Width>2.51563in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.22917in</Width>
+                  <Width>1.07292in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.97917in</Width>
+                  <Width>0.88542in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.98959in</Width>
@@ -523,14 +534,14 @@ order by ps.PsurPeriodStart</CommandText>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Asp_no">
+                        <Textbox Name="Aspno">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Asp_no.Value</Value>
+                                  <Value>=Fields!Aspno.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -540,7 +551,7 @@ order by ps.PsurPeriodStart</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Asp_no</rd:DefaultName>
+                          <rd:DefaultName>Aspno</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -559,14 +570,14 @@ order by ps.PsurPeriodStart</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Product_Name1">
+                        <Textbox Name="ProductName">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Product_Name.Value</Value>
+                                  <Value>=Fields!ProductName.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -576,7 +587,7 @@ order by ps.PsurPeriodStart</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Product_Name1</rd:DefaultName>
+                          <rd:DefaultName>ProductName</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -737,14 +748,14 @@ order by ps.PsurPeriodStart</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PSUR_from">
+                        <Textbox Name="PSURfrom">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PSUR_from.Value</Value>
+                                  <Value>=Fields!PSURfrom.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -756,7 +767,7 @@ order by ps.PsurPeriodStart</CommandText>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PSUR_from</rd:DefaultName>
+                          <rd:DefaultName>PSURfrom</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -774,14 +785,14 @@ order by ps.PsurPeriodStart</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PSUR_end">
+                        <Textbox Name="PSURend">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PSUR_end.Value</Value>
+                                  <Value>=Fields!PSURend.Value</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -793,7 +804,7 @@ order by ps.PsurPeriodStart</CommandText>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PSUR_end</rd:DefaultName>
+                          <rd:DefaultName>PSURend</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -894,16 +905,16 @@ order by ps.PsurPeriodStart</CommandText>
               </Filter>
             </Filters>
             <Top>0.09667in</Top>
-            <Left>0.49953cm</Left>
+            <Left>2.24896cm</Left>
             <Height>0.43in</Height>
-            <Width>15.31898in</Width>
+            <Width>13.6146in</Width>
             <Style />
           </Tablix>
         </ReportItems>
         <Height>0.71417in</Height>
         <Style />
       </Body>
-      <Width>19.28001in</Width>
+      <Width>14.50002in</Width>
       <Page>
         <PageHeader>
           <Height>2.06375cm</Height>
@@ -917,7 +928,7 @@ order by ps.PsurPeriodStart</CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PREG 2.0 - PSURList</Value>
+                      <Value>PREG 2.0 - PSUR List</Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>
@@ -1003,6 +1014,8 @@ order by ps.PsurPeriodStart</CommandText>
             </Border>
           </Style>
         </PageFooter>
+        <PageHeight>8.5in</PageHeight>
+        <PageWidth>16in</PageWidth>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>
         <TopMargin>1in</TopMargin>
