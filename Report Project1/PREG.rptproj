@@ -69,6 +69,14 @@
       <Name>Packages_ProductsInMarketReport.rdl</Name>
       <FullPath>Packages_ProductsInMarketReport.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>Packages_ProductsNotInMarketReport.rdl</Name>
+      <FullPath>Packages_ProductsNotInMarketReport.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Packages_AllProductsReport.rdl</Name>
+      <FullPath>Packages_AllProductsReport.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>

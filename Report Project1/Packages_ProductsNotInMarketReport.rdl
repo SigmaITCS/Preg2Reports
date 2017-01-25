@@ -33,7 +33,7 @@ FROM   preg4.dbo.productnames names
          ON productPackage.packagetypeid = packageType.id 
       JOIN  PREG4.dbo.ProductPackageDetails productPackagesDetails
 	     ON productPackage.Id= productPackagesDetails.ProductPackageId
-WHERE  productPackage.notavailable = 1 
+WHERE  productPackage.notavailable = 0
 ORDER  BY names.NAME </CommandText>
       </Query>
       <Fields>
@@ -83,13 +83,13 @@ ORDER  BY names.NAME </CommandText>
                   <Width>0.98437in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.79557in</Width>
+                  <Width>0.91015in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.04557in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.52474in</Width>
+                  <Width>2.08724in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -554,7 +554,7 @@ ORDER  BY names.NAME </CommandText>
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>1.5364in</Size>
+                    <Size>1.5221in</Size>
                     <CellContents>
                       <Textbox Name="Textbox15">
                         <CanGrow>true</CanGrow>
@@ -612,7 +612,7 @@ ORDER  BY names.NAME </CommandText>
                   <TablixMembers>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>1.5989in</Size>
+                        <Size>1.77473in</Size>
                         <CellContents>
                           <Textbox Name="Textbox17">
                             <CanGrow>true</CanGrow>
@@ -730,7 +730,7 @@ ORDER  BY names.NAME </CommandText>
                           <TablixMembers>
                             <TablixMember>
                               <TablixHeader>
-                                <Size>2.06641in</Size>
+                                <Size>1.72141in</Size>
                                 <CellContents>
                                   <Textbox Name="Textbox25">
                                     <CanGrow>true</CanGrow>
@@ -811,7 +811,7 @@ ORDER  BY names.NAME </CommandText>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>1.5364in</Size>
+                    <Size>1.5221in</Size>
                     <CellContents>
                       <Textbox Name="ProductName1">
                         <CanGrow>true</CanGrow>
@@ -877,7 +877,7 @@ ORDER  BY names.NAME </CommandText>
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
-                        <Size>1.5989in</Size>
+                        <Size>1.77473in</Size>
                         <CellContents>
                           <Textbox Name="PharmaceuticalForm1">
                             <CanGrow>true</CanGrow>
@@ -1010,7 +1010,7 @@ ORDER  BY names.NAME </CommandText>
                                 </SortExpression>
                               </SortExpressions>
                               <TablixHeader>
-                                <Size>2.06641in</Size>
+                                <Size>1.72141in</Size>
                                 <CellContents>
                                   <Textbox Name="PackageType1">
                                     <CanGrow>true</CanGrow>
@@ -1086,9 +1086,9 @@ ORDER  BY names.NAME </CommandText>
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
             <Top>0.06944in</Top>
-            <Left>1.08161cm</Left>
-            <Height>0.64473in</Height>
-            <Width>10.4049in</Width>
+            <Left>1.11125cm</Left>
+            <Height>0.64472in</Height>
+            <Width>10.89849in</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1116,13 +1116,13 @@ ORDER  BY names.NAME </CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>0.81834in</Height>
+        <Height>0.83916in</Height>
         <Style />
       </Body>
-      <Width>10.83073in</Width>
+      <Width>11.33599in</Width>
       <Page>
         <PageHeader>
-          <Height>2.27542cm</Height>
+          <Height>2.2225cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1133,7 +1133,7 @@ ORDER  BY names.NAME </CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Packages report- Products on the market</Value>
+                      <Value>Packages report-  Products not on the market</Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>
@@ -1148,7 +1148,7 @@ ORDER  BY names.NAME </CommandText>
               <Top>0.58208cm</Top>
               <Left>2.24896cm</Left>
               <Height>0.5in</Height>
-              <Width>7.375in</Width>
+              <Width>7.31777in</Width>
               <Style>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
@@ -1199,7 +1199,7 @@ ORDER  BY names.NAME </CommandText>
               </Paragraphs>
               <rd:DefaultName>Textbox6</rd:DefaultName>
               <Top>0.64917in</Top>
-              <Left>4.91542in</Left>
+              <Left>7.88417in</Left>
               <Height>0.25in</Height>
               <Width>1in</Width>
               <Style>
@@ -1220,7 +1220,7 @@ ORDER  BY names.NAME </CommandText>
           </Style>
         </PageFooter>
         <PageHeight>8.5in</PageHeight>
-        <PageWidth>13in</PageWidth>
+        <PageWidth>14in</PageWidth>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>
         <TopMargin>1in</TopMargin>

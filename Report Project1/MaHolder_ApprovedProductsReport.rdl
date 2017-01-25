@@ -31,7 +31,7 @@
   	 left join PREG4.dbo.ResponsibleManagers Responsible
    on Responsible.Id= p.ResponsibleManagerId
 
-where ISNULL(ps.ApprovalDate,'')!=''
+where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNULL(ps.ApplicationWithdrawn,'')=''
  order by ps.ApprovalDate, ps.Land</CommandText>
       </Query>
       <Fields>
@@ -124,34 +124,31 @@ where ISNULL(ps.ApprovalDate,'')!=''
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.95313in</Width>
+                  <Width>0.75521in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.91792in</Width>
+                  <Width>1.44917in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.18623in</Width>
+                  <Width>0.9154in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.40105in</Width>
+                  <Width>1.85938in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.22917in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.13542in</Width>
+                  <Width>1.69792in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.65625in</Width>
+                  <Width>0.78125in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.20834in</Width>
+                  <Width>1.66667in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.86458in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -475,7 +472,7 @@ where ISNULL(ps.ApprovalDate,'')!=''
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Sunset</Value>
+                                  <Value>Sunset  clause(approval expires)</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -490,46 +487,6 @@ where ISNULL(ps.ApprovalDate,'')!=''
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox8</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <BackgroundColor>CornflowerBlue</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox14">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Responsible Id</Value>
-                                  <Style>
-                                    <FontFamily />
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox14</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -876,50 +833,12 @@ where ISNULL(ps.ApprovalDate,'')!=''
                         </Textbox>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="ResponsibleId">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!ResponsibleId.Value</Value>
-                                  <Style>
-                                    <FontFamily />
-                                    <Color>#333333</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>ResponsibleId</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
-                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -971,14 +890,14 @@ where ISNULL(ps.ApprovalDate,'')!=''
             <Top>0.09667in</Top>
             <Left>0.49954cm</Left>
             <Height>0.4925in</Height>
-            <Width>17.55209in</Width>
+            <Width>12.21875in</Width>
             <Style />
           </Tablix>
         </ReportItems>
         <Height>0.71417in</Height>
         <Style />
       </Body>
-      <Width>19.28001in</Width>
+      <Width>12.93626in</Width>
       <Page>
         <PageHeader>
           <Height>2.06375cm</Height>
@@ -1086,6 +1005,8 @@ where ISNULL(ps.ApprovalDate,'')!=''
             </Border>
           </Style>
         </PageFooter>
+        <PageHeight>8.5in</PageHeight>
+        <PageWidth>15in</PageWidth>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>
         <TopMargin>1in</TopMargin>
