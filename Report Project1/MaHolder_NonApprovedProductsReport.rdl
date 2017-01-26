@@ -13,26 +13,34 @@
     <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
-        <CommandText> select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
-	   p.Strength,ps.ApprovalDate as [ApprovalDate], app.Name as [ApprovedProcedures], ps.ApprovalCease as[Sunset],  ps.MtNumber as [MaNo] , 
-         Responsible.Id   as [ResponsibleId]      
- 
-  from PREG4.dbo.Products p
-   join [PREG4].[dbo].ProductSpecifications ps
-    on  p.Id= ps.ProductId
-  join PREG4.dbo.ProductNames names
-    on p.ProductNameId= names.Id
-  left join  PREG4.dbo.DosageForms df
-    on p.DosageFormId= df.Id
-  left join  PREG4.dbo.MarketAuthHolders Ma
-	 on ps.MarketAuthHolderId= ma.Id
-  left join PREG4.dbo.ApprovalProcedures App
-  on app.Id= p.ApprovalProcedureId
-  	 left join PREG4.dbo.ResponsibleManagers Responsible
-   on Responsible.Id= p.ResponsibleManagerId
-
-where ISNULL(ps.ApprovalDate,'')=''
- order by ps.Land, ps.ApprovalDate</CommandText>
+        <CommandText>SELECT p.aspnumber                                           AS[Asp no], 
+       names.NAME                                            AS [Product Name], 
+       ps.land                                               AS [Country], 
+       df.NAME                                               AS 
+       [Pharmacetical form], 
+       p.strength, 
+       CONVERT(VARCHAR, Cast(ps.approvaldate AS DATE), 120)  AS [ApprovalDate], 
+       app.NAME                                              AS 
+       [ApprovedProcedures], 
+       CONVERT(VARCHAR, Cast(ps.approvalcease AS DATE), 120) AS[Sunset], 
+       ps.mtnumber                                           AS [MaNo], 
+       Responsible.id                                        AS [ResponsibleId] 
+FROM   preg4.dbo.products p 
+       JOIN [PREG4].[dbo].productspecifications ps 
+         ON p.id = ps.productid 
+       JOIN preg4.dbo.productnames names 
+         ON p.productnameid = names.id 
+       LEFT JOIN preg4.dbo.dosageforms df 
+              ON p.dosageformid = df.id 
+       LEFT JOIN preg4.dbo.marketauthholders Ma 
+              ON ps.marketauthholderid = ma.id 
+       LEFT JOIN preg4.dbo.approvalprocedures App 
+              ON app.id = p.approvalprocedureid 
+       LEFT JOIN preg4.dbo.responsiblemanagers Responsible 
+              ON Responsible.id = p.responsiblemanagerid 
+WHERE  Isnull(ps.approvaldate, '') = '' 
+ORDER  BY ps.land, 
+          ps.approvaldate </CommandText>
       </Query>
       <Fields>
         <Field Name="Asp_no">
@@ -52,12 +60,12 @@ where ISNULL(ps.ApprovalDate,'')=''
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Strength">
-          <DataField>Strength</DataField>
+          <DataField>strength</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ApprovalDate">
           <DataField>ApprovalDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="MaNo">
           <DataField>MaNo</DataField>
@@ -69,7 +77,7 @@ where ISNULL(ps.ApprovalDate,'')=''
         </Field>
         <Field Name="Sunset">
           <DataField>Sunset</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ResponsibleId">
           <DataField>ResponsibleId</DataField>
@@ -1018,12 +1026,8 @@ where ISNULL(ps.ApprovalDate,'')=''
   <ReportParameters>
     <ReportParameter Name="Country">
       <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>Sweden</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
+      <Hidden>true</Hidden>
       <ValidValues>
         <ParameterValues>
           <ParameterValue>
@@ -1071,6 +1075,7 @@ where ISNULL(ps.ApprovalDate,'')=''
         </DataSetReference>
       </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
+      <Hidden>true</Hidden>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Responsible</DataSetName>

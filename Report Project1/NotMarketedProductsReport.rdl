@@ -1241,6 +1241,7 @@ where ps.LanseringsDatumEnd &lt;= @ToDate
         </DataSetReference>
       </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
+      <Hidden>true</Hidden>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Responsible</DataSetName>

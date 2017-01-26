@@ -1324,12 +1324,8 @@
   <ReportParameters>
     <ReportParameter Name="Country">
       <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>Sweden</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
+      <Hidden>true</Hidden>
       <ValidValues>
         <ParameterValues>
           <ParameterValue>
@@ -1377,6 +1373,7 @@
         </DataSetReference>
       </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
+      <Hidden>true</Hidden>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Responsible</DataSetName>

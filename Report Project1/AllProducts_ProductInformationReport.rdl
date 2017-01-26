@@ -94,19 +94,18 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
           </QueryParameter>
         </QueryParameters>
         <CommandText>select distinct ma.Name, ps.MtNumber as[MaNo], 
-	 cast(ps.ApplicationDate as date)as [ApplicationDate],
-	 cast(ps.ApplicationWithdrawn as date) as [ApplicationWithdrawn],
-	 cast(ps.ApprovalCease as date) as[ApprovalExpires], 
-	 case when ps.Renewal = 1 then 'X' else '' end as Renewal , 
-	 cast(ps.ApprovalDate as date) as [ApprovalDate],
-	 convert(varchar(25), cast(ps.PsurPeriodStart as date),120)+' - '+convert(varchar(25),cast(ps.PsurPeriodEnd as date), 120) as NextPSURperiod   ,
-	 cast(ps.LaunchDate as date) as [MarketDate],
+	CONVERT(VARCHAR, cast(ps.ApplicationDate as date),120) as [ApplicationDate],
+	CONVERT(VARCHAR, cast(ps.ApplicationWithdrawn as date), 120) as [ApplicationWithdrawn],
+	CONVERT(VARCHAR, cast(ps.ApprovalCease as date) , 120) as[ApprovalExpires], 
+	case when ps.Renewal = 1 then 'X' else '' end as Renewal , 
+	CONVERT(VARCHAR, cast(ps.ApprovalDate as date), 120) as [ApprovalDate],
+	CONVERT(varchar, cast(ps.PsurPeriodStart as date),120)+' - '+CONVERT(varchar,cast(ps.PsurPeriodEnd as date), 120) as NextPSURperiod   ,
+	CONVERT(VARCHAR, cast(ps.LaunchDate as date), 120) as [MarketDate],
 	 case when ps.NotMarketed = 1 then 'X' else '' end   as [NotMarketed],
 	 case when ps.DeletionOfApproval  = 1 then 'X' else '' end  as [DeletionOfApproval], ps.MahTransfer, Responsible.Name as[Responsible], p.Declaration as[Composition],
 	 p.SpecActiveSubstance as [SpecificationActiveSubstance], p.SpecFinishedProd as [SpecificationFinishedProduc],
 	 openStorage.Name as [OpenStorage ]
-	 	  ,	ps.Land,Pstatues.Name as[PrescriptionStatus],  p.AtcCode, p.LinkToSmpc as [ApprovedSmPC], p.LinkToPil as [ApprovedPIL]	  
- 
+	 	  ,	ps.Land,Pstatues.Name as[PrescriptionStatus],  p.AtcCode, p.LinkToSmpc as [ApprovedSmPC], p.LinkToPil as [ApprovedPIL]	
   from PREG4.dbo.Products p
    join [PREG4].[dbo].ProductSpecifications ps
     on  p.Id= ps.ProductId
@@ -138,15 +137,15 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="ApplicationDate">
           <DataField>ApplicationDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ApplicationWithdrawn">
           <DataField>ApplicationWithdrawn</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ApprovalExpires">
           <DataField>ApprovalExpires</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Renewal">
           <DataField>Renewal</DataField>
@@ -154,7 +153,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="ApprovalDate">
           <DataField>ApprovalDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NextPSURperiod">
           <DataField>NextPSURperiod</DataField>
@@ -162,7 +161,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="MarketDate">
           <DataField>MarketDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NotMarketed">
           <DataField>NotMarketed</DataField>
@@ -229,13 +228,16 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             <Value>=Parameters!AspNo.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>select distinct ps.Land	,names.Name as [ProductName], ma.Name, ps.MtNumber as[MaNo], cast(ps.ApplicationDate as date)  as [ApplicationDate], ps.ApplicationWithdrawn, ps.ApprovalCease as[ApprovalExpires], 
+        <CommandText>
+ select distinct ps.Land	,names.Name as [ProductName], ma.Name, ps.MtNumber as[MaNo],
+   CONVERT(VARCHAR, cast(ps.ApplicationDate as date), 120)  as [ApplicationDate], ps.ApplicationWithdrawn,
+    CONVERT(VARCHAR,cast( ps.ApprovalCease as date), 120) as[ApprovalExpires], 
 	 case when ps.Renewal = 1 then 'X' else '' end as Renewal , 
-	 cast(ps.ApprovalDate as date) as [ApprovalDate],
-	 convert(varchar(25), cast(ps.PsurPeriodStart as date),120)+' - '+convert(varchar(25),cast(ps.PsurPeriodEnd as date), 120) as NextPSURperiod   ,
-	  cast(ps.LaunchDate as date) as [MarketDate],  case when ps.NotMarketed = 1 then 'X' else '' end   as [NotMarketed],
-	case when ps.DeletionOfApproval  = 1 then 'X' else '' end  as [DeletionOfApproval],cast(ps.MahTransfer as date) as[MaTransfer], p.Id
-	
+	CONVERT(VARCHAR, cast(ps.ApprovalDate as date), 120) as [ApprovalDate],
+	 CONVERT(varchar, cast(ps.PsurPeriodStart as date),120)+' - '+CONVERT(varchar,cast(ps.PsurPeriodEnd as date), 120) as NextPSURperiod   ,
+	CONVERT(VARCHAR, cast(ps.LaunchDate as date), 120) as [MarketDate],  case when ps.NotMarketed = 1 then 'X' else '' end   as [NotMarketed],
+	case when ps.DeletionOfApproval  = 1 then 'X' else '' end  as [DeletionOfApproval],
+	CONVERT(VARCHAR,cast(ps.MahTransfer as date), 120) as[MaTransfer], p.Id 
 	  
  
   from PREG4.dbo.Products p
@@ -271,7 +273,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="ApplicationDate">
           <DataField>ApplicationDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ApplicationWithdrawn">
           <DataField>ApplicationWithdrawn</DataField>
@@ -279,7 +281,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="ApprovalExpires">
           <DataField>ApprovalExpires</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Renewal">
           <DataField>Renewal</DataField>
@@ -287,7 +289,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="ApprovalDate">
           <DataField>ApprovalDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NextPSURperiod">
           <DataField>NextPSURperiod</DataField>
@@ -295,7 +297,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="MarketDate">
           <DataField>MarketDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NotMarketed">
           <DataField>NotMarketed</DataField>
@@ -307,7 +309,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="MaTransfer">
           <DataField>MaTransfer</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Id">
           <DataField>Id</DataField>
@@ -1371,7 +1373,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                   <Width>1.16667in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.01041in</Width>
+                  <Width>0.7361in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.49307in</Width>
@@ -1383,13 +1385,13 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                   <Width>1.30554in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.99001in</Width>
+                  <Width>0.63237in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.19403in</Width>
+                  <Width>1.10028in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.57639in</Width>
+                  <Width>1.69097in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.35416in</Width>
@@ -2582,7 +2584,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             <Top>1.05778in</Top>
             <Left>0.50915in</Left>
             <Height>0.5in</Height>
-            <Width>14.11112in</Width>
+            <Width>13.5in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -2933,19 +2935,19 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                   <Width>1.52431in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.81249in</Width>
+                  <Width>0.48569in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.1875in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.37499in</Width>
+                  <Width>1.69791in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.05208in</Width>
+                  <Width>0.73958in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13542in</Width>
+                  <Width>1.03427in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1in</Width>
@@ -4010,7 +4012,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Renewal.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -4384,7 +4388,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             <Top>5.25569in</Top>
             <Left>0.4892in</Left>
             <Height>0.53472in</Height>
-            <Width>16.4236in</Width>
+            <Width>15.00607in</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
