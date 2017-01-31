@@ -32,7 +32,7 @@
   	 left join PREG4.dbo.ResponsibleManagers Responsible
    on Responsible.Id= p.ResponsibleManagerId
 
-where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNULL(ps.ApplicationWithdrawn,'')=''
+where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNULL(ps.ApplicationWithdrawn,'')='' and ps.ApprovalCease&gt;= GETDATE()
  order by ps.ApprovalDate, ps.Land</CommandText>
       </Query>
       <Fields>
@@ -1033,6 +1033,7 @@ where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNUL
         </Values>
       </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
+      <Hidden>true</Hidden>
       <ValidValues>
         <ParameterValues>
           <ParameterValue>
@@ -1080,6 +1081,7 @@ where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNUL
         </DataSetReference>
       </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
+      <Hidden>true</Hidden>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Responsible</DataSetName>

@@ -13,6 +13,32 @@
     <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Country1">
+            <Value>=Parameters!Country1.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Country3">
+            <Value>=Parameters!Country3.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Country2">
+            <Value>=Parameters!Country2.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Country4">
+            <Value>=Parameters!Country4.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Country5">
+            <Value>=Parameters!Country5.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Country6">
+            <Value>=Parameters!Country6.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Country7">
+            <Value>=Parameters!Country7.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Country8">
+            <Value>=Parameters!Country8.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT DISTINCT names.NAME                         AS [ProductName], 
                 DF.NAME                            AS [PharmaceuticalForm], 
                 p.strength, 
@@ -25,6 +51,8 @@
 FROM   preg4.dbo.productnames names 
        JOIN preg4.dbo.products p 
          ON names.id = p.productnameid 
+       JOIN PREG4.dbo.ProductSpecifications ps
+	     ON p.Id= ps.ProductId
        JOIN preg4.dbo.dosageforms DF 
          ON p.dosageformid = DF.id 
        JOIN preg4.dbo.productpackages productPackage 
@@ -34,6 +62,14 @@ FROM   preg4.dbo.productnames names
       JOIN  PREG4.dbo.ProductPackageDetails productPackagesDetails
 	     ON productPackage.Id= productPackagesDetails.ProductPackageId
 
+  where  (productPackage.countries like '%'+@Country1+'%') OR
+		        ( productPackage.countries like '%'+@Country2+'%' ) OR
+				 ( productPackage.countries like '%'+@Country3+'%' ) OR
+				 (productPackage.countries like '%'+@Country4+'%' ) OR
+		        ( productPackage.countries like '%'+@Country5+'%' ) OR
+				 ( productPackage.countries like '%'+@Country6+'%' ) OR 
+				 (productPackage.countries like '%'+@Country7+'%') OR
+		        ( productPackage.countries like '%'+@Country8+'%')
 ORDER  BY names.NAME </CommandText>
       </Query>
       <Fields>
@@ -1086,7 +1122,7 @@ ORDER  BY names.NAME </CommandText>
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
             <Top>0.06944in</Top>
-            <Left>1.08165cm</Left>
+            <Left>1.08166cm</Left>
             <Height>0.64472in</Height>
             <Width>10.49863in</Width>
             <Style>
@@ -1122,7 +1158,7 @@ ORDER  BY names.NAME </CommandText>
       <Width>10.92448in</Width>
       <Page>
         <PageHeader>
-          <Height>2.19604cm</Height>
+          <Height>2.2225cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1229,10 +1265,102 @@ ORDER  BY names.NAME </CommandText>
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Country2">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Country1">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Country3">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Country4">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Country5">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Country6">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Country7">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Country8">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
+      <NumberOfRows>3</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Country2</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Country1</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Country3</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>Country4</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>Country5</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>Country6</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>Country7</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>Country8</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>

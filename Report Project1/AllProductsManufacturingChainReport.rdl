@@ -748,12 +748,14 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>AspNo</Prompt>
+      <Hidden>true</Hidden>
     </ReportParameter>
     <ReportParameter Name="ProductId">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>ProductId</Prompt>
+      <Hidden>true</Hidden>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>

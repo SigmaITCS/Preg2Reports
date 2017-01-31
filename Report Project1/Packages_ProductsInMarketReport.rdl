@@ -21,11 +21,13 @@
                 productPackage.opsfinishedpackcode AS [OPS Code], 
                 packageType.NAME                   AS [PackageType], 
                 productPackage.countries           AS [Countries] 
-				--productPackagesDetails.Countries   as [Countries1], productPackagesDetails.Number
+				
 FROM   preg4.dbo.productnames names 
        JOIN preg4.dbo.products p 
          ON names.id = p.productnameid 
-       JOIN preg4.dbo.dosageforms DF 
+    left  JOIN PREG4.dbo.ProductSpecifications ps
+	     ON p.Id= ps.ProductId
+     left  JOIN preg4.dbo.dosageforms DF 
          ON p.dosageformid = DF.id 
        JOIN preg4.dbo.productpackages productPackage 
          ON p.id = productPackage.productid 
@@ -33,7 +35,8 @@ FROM   preg4.dbo.productnames names
          ON productPackage.packagetypeid = packageType.id 
       JOIN  PREG4.dbo.ProductPackageDetails productPackagesDetails
 	     ON productPackage.Id= productPackagesDetails.ProductPackageId
-WHERE  productPackage.notavailable = 1 
+
+where  ( ps.LanseringsDatumEnd &gt;=  GETDATE() or ISNULL( ps.LanseringsDatumEnd , '')='')
 ORDER  BY names.NAME </CommandText>
       </Query>
       <Fields>
@@ -1087,8 +1090,8 @@ ORDER  BY names.NAME </CommandText>
             <DataSetName>DataSet1</DataSetName>
             <Top>0.06944in</Top>
             <Left>1.08161cm</Left>
-            <Height>0.64473in</Height>
-            <Width>10.4049in</Width>
+            <Height>0.64472in</Height>
+            <Width>10.40488in</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
