@@ -47,7 +47,7 @@
                 productPackage.opsfinishedpackcode AS [OPS Code], 
                 packageType.NAME                   AS [PackageType], 
                 productPackage.countries           AS [Countries] 
-				, ps.LanseringsDatumEnd
+				
 FROM   preg4.dbo.productnames names 
        JOIN preg4.dbo.products p 
          ON names.id = p.productnameid 
@@ -61,6 +61,7 @@ FROM   preg4.dbo.productnames names
          ON productPackage.packagetypeid = packageType.id 
       JOIN  PREG4.dbo.ProductPackageDetails productPackagesDetails
 	     ON productPackage.Id= productPackagesDetails.ProductPackageId
+
 WHERE  ps.LanseringsDatumEnd &lt;=  GETDATE() 
  and 
 ((productPackage.countries like '%'+@Country1+'%') OR
@@ -106,10 +107,6 @@ ORDER  BY names.NAME </CommandText>
         <Field Name="Countries">
           <DataField>Countries</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="LanseringsDatumEnd">
-          <DataField>LanseringsDatumEnd</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -418,6 +415,7 @@ ORDER  BY names.NAME </CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

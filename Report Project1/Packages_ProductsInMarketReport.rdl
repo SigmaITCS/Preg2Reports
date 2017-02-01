@@ -51,9 +51,9 @@
 FROM   preg4.dbo.productnames names 
        JOIN preg4.dbo.products p 
          ON names.id = p.productnameid 
-    left  JOIN PREG4.dbo.ProductSpecifications ps
+      JOIN PREG4.dbo.ProductSpecifications ps
 	     ON p.Id= ps.ProductId
-     left  JOIN preg4.dbo.dosageforms DF 
+       JOIN preg4.dbo.dosageforms DF 
          ON p.dosageformid = DF.id 
        JOIN preg4.dbo.productpackages productPackage 
          ON p.id = productPackage.productid 
@@ -62,7 +62,8 @@ FROM   preg4.dbo.productnames names
       JOIN  PREG4.dbo.ProductPackageDetails productPackagesDetails
 	     ON productPackage.Id= productPackagesDetails.ProductPackageId
 
-where  ( ps.LanseringsDatumEnd &gt;=  GETDATE() or ISNULL( ps.LanseringsDatumEnd , '')='') and 
+where  ( ps.LanseringsDatumEnd &gt;=  GETDATE() or ISNULL( ps.LanseringsDatumEnd , '')='')
+and 
 ((productPackage.countries like '%'+@Country1+'%') OR
 		        ( productPackage.countries like '%'+@Country2+'%' ) OR
 				 ( productPackage.countries like '%'+@Country3+'%' ) OR
@@ -132,7 +133,7 @@ ORDER  BY names.NAME </CommandText>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.35514in</Height>
+                  <Height>0.40202in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -361,7 +362,7 @@ ORDER  BY names.NAME </CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.28958in</Height>
+                  <Height>0.33646in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -821,7 +822,6 @@ ORDER  BY names.NAME </CommandText>
                                       <PaddingBottom>2pt</PaddingBottom>
                                     </Style>
                                   </Textbox>
-                                  <rd:Selected>true</rd:Selected>
                                 </CellContents>
                               </TablixHeader>
                               <TablixMembers>
@@ -1006,34 +1006,20 @@ ORDER  BY names.NAME </CommandText>
                                 <rd:DefaultName>strength1</rd:DefaultName>
                                 <Style>
                                   <Border>
-                                    <Style>Solid</Style>
+                                    <Style>None</Style>
                                   </Border>
-                                  <TopBorder>
-                                    <Color>Black</Color>
-                                    <Style>Solid</Style>
-                                    <Width>1pt</Width>
-                                  </TopBorder>
                                   <BottomBorder>
                                     <Color>Black</Color>
                                     <Style>Solid</Style>
-                                    <Width>3pt</Width>
+                                    <Width>1pt</Width>
                                   </BottomBorder>
-                                  <LeftBorder>
-                                    <Color>Black</Color>
-                                    <Style>Solid</Style>
-                                    <Width>1pt</Width>
-                                  </LeftBorder>
-                                  <RightBorder>
-                                    <Color>Black</Color>
-                                    <Style>Solid</Style>
-                                    <Width>1pt</Width>
-                                  </RightBorder>
                                   <PaddingLeft>2pt</PaddingLeft>
                                   <PaddingRight>2pt</PaddingRight>
                                   <PaddingTop>2pt</PaddingTop>
                                   <PaddingBottom>2pt</PaddingBottom>
                                 </Style>
                               </Textbox>
+                              <rd:Selected>true</rd:Selected>
                             </CellContents>
                           </TablixHeader>
                           <TablixMembers>
@@ -1126,7 +1112,7 @@ ORDER  BY names.NAME </CommandText>
             <DataSetName>DataSet1</DataSetName>
             <Top>0.06944in</Top>
             <Left>1.08161cm</Left>
-            <Height>0.64472in</Height>
+            <Height>0.73847in</Height>
             <Width>10.40488in</Width>
             <Style>
               <Border>
@@ -1155,10 +1141,10 @@ ORDER  BY names.NAME </CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>0.81834in</Height>
+        <Height>2.08208in</Height>
         <Style />
       </Body>
-      <Width>10.83073in</Width>
+      <Width>11.83071in</Width>
       <Page>
         <PageHeader>
           <Height>2.27542cm</Height>
