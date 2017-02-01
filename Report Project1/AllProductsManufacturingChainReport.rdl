@@ -352,8 +352,8 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
-            <Top>0.63139in</Top>
-            <Left>2.24896cm</Left>
+            <Top>0.81889in</Top>
+            <Left>4.05742cm</Left>
             <Height>0.97167in</Height>
             <Width>10.80209in</Width>
             <Style />
@@ -377,8 +377,8 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
             </Paragraphs>
             <rd:DefaultName>textbox1</rd:DefaultName>
             <Top>0.19262cm</Top>
-            <Left>2.24897cm</Left>
-            <Height>0.5in</Height>
+            <Left>4.08389cm</Left>
+            <Height>0.56944in</Height>
             <Width>10.80209in</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -395,7 +395,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Release responsibility: </Value>
+                    <Value>Responsible:   </Value>
                     <Style>
                       <FontFamily>Segoe UI Light</FontFamily>
                       <FontSize>11pt</FontSize>
@@ -415,9 +415,9 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
             <Top>0.15917in</Top>
-            <Left>0.88542in</Left>
+            <Left>1.60783in</Left>
             <Height>0.25in</Height>
-            <Width>3.39583in</Width>
+            <Width>5.66146in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -430,10 +430,10 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>1.60306in</Height>
+        <Height>1.92598in</Height>
         <Style />
       </Body>
-      <Width>12.68626in</Width>
+      <Width>15.86266in</Width>
       <Page>
         <PageHeader>
           <Height>3.79838cm</Height>
@@ -489,7 +489,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
               </Paragraphs>
               <rd:DefaultName>textbox1</rd:DefaultName>
               <Top>0.56304cm</Top>
-              <Left>2.24896cm</Left>
+              <Left>4.08388cm</Left>
               <Height>0.63487in</Height>
               <Width>10.80209in</Width>
               <Style>
@@ -504,7 +504,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
               <Value>AstraZeneca</Value>
               <Sizing>FitProportional</Sizing>
               <Top>0.22917in</Top>
-              <Left>0.19667in</Left>
+              <Left>0.91908in</Left>
               <Height>0.5in</Height>
               <Width>0.5in</Width>
               <ZIndex>1</ZIndex>
@@ -524,14 +524,12 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
                       <Value>Product name:  </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=First(Fields!ProductName.Value, "DataSet1")</Value>
                       <Style>
-                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -541,7 +539,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
               </Paragraphs>
               <rd:DefaultName>Textbox146</rd:DefaultName>
               <Top>0.91209in</Top>
-              <Left>0.875in</Left>
+              <Left>1.59741in</Left>
               <Height>0.29514in</Height>
               <Width>2.08209in</Width>
               <ZIndex>2</ZIndex>
@@ -565,14 +563,12 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
                       <Value>Pharmaceutical form : </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=First(Fields!Pharmaceuticalform.Value, "DataSet1")</Value>
                       <Style>
-                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -584,7 +580,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
               </Paragraphs>
               <rd:DefaultName>Textbox149</rd:DefaultName>
               <Top>0.91209in</Top>
-              <Left>3.39958in</Left>
+              <Left>4.12199in</Left>
               <Height>0.29514in</Height>
               <Width>3.1473in</Width>
               <ZIndex>3</ZIndex>
@@ -608,14 +604,12 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
                       <Value>Strength : </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=First(Fields!strength.Value, "DataSet1")</Value>
                       <Style>
-                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -627,7 +621,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
               </Paragraphs>
               <rd:DefaultName>Textbox148</rd:DefaultName>
               <Top>0.91209in</Top>
-              <Left>6.92188in</Left>
+              <Left>7.64429in</Left>
               <Height>0.29514in</Height>
               <Width>2.51042in</Width>
               <ZIndex>4</ZIndex>
@@ -651,14 +645,12 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
                       <Value>Asp no : </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=First(Fields!aspnumber.Value, "DataSet1")</Value>
                       <Style>
-                        <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
@@ -669,8 +661,8 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox149</rd:DefaultName>
-              <Top>0.91209in</Top>
-              <Left>9.60293in</Left>
+              <Top>0.89821in</Top>
+              <Left>10.32534in</Left>
               <Height>0.29514in</Height>
               <Width>2.08458in</Width>
               <ZIndex>5</ZIndex>
@@ -684,6 +676,18 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Line Name="Line1">
+              <Top>1.35188in</Top>
+              <Left>1.59741in</Left>
+              <Height>0in</Height>
+              <Width>8.81251in</Width>
+              <ZIndex>6</ZIndex>
+              <Style>
+                <Border>
+                  <Style>Solid</Style>
+                </Border>
+              </Style>
+            </Line>
           </ReportItems>
           <Style>
             <Border>
@@ -712,7 +716,7 @@ where (p.Id=@ProductId OR @ProductId IS NULL) and ( P.AspNumber= @AspNo OR @AspN
               </Paragraphs>
               <rd:DefaultName>Textbox6</rd:DefaultName>
               <Top>0.75in</Top>
-              <Left>6.3425in</Left>
+              <Left>7.06491in</Left>
               <Height>0.25in</Height>
               <Width>1in</Width>
               <Style>

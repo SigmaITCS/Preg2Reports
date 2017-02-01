@@ -10,7 +10,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="DataSet">
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
         <CommandText> select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
@@ -871,7 +871,7 @@ where ISNULL(ps.ApprovalDate,'')!='' and ISNULL(ps.Deregistered,'')='' and ISNUL
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>DataSet1</DataSetName>
+            <DataSetName>DataSet</DataSetName>
             <Filters>
               <Filter>
                 <FilterExpression>=Fields!ResponsibleId.Value</FilterExpression>

@@ -102,10 +102,14 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
 	CONVERT(varchar, cast(ps.PsurPeriodStart as date),120)+' - '+CONVERT(varchar,cast(ps.PsurPeriodEnd as date), 120) as NextPSURperiod   ,
 	CONVERT(VARCHAR, cast(ps.LaunchDate as date), 120) as [MarketDate],
 	 case when ps.NotMarketed = 1 then 'X' else '' end   as [NotMarketed],
-	 case when ps.DeletionOfApproval  = 1 then 'X' else '' end  as [DeletionOfApproval], ps.MahTransfer, Responsible.Name as[Responsible], p.Declaration as[Composition],
-	 p.SpecActiveSubstance as [SpecificationActiveSubstance], p.SpecFinishedProd as [SpecificationFinishedProduc],
+	 case when ps.DeletionOfApproval  = 1 then 'X' else '' end  as [DeletionOfApproval],
+	 case when ISNULL(ps.MahTransfer,'') != '' then 'X' else '' end as [MahTransfer], 
+	  Responsible.Name as[Responsible],
+	  p.Declaration as[Composition],
+	  p.SpecActiveSubstance as [SpecificationActiveSubstance],
+	  p.SpecFinishedProd as [SpecificationFinishedProduc],
 	 openStorage.Name as [OpenStorage ]
-	 	  ,	ps.Land,Pstatues.Name as[PrescriptionStatus],  p.AtcCode, p.LinkToSmpc as [ApprovedSmPC], p.LinkToPil as [ApprovedPIL]	
+	 	  ,	 ps.Land,Pstatues.Name as[PrescriptionStatus],  p.AtcCode, p.LinkToSmpc as [ApprovedSmPC], p.LinkToPil as [ApprovedPIL]	
   from PREG4.dbo.Products p
    join [PREG4].[dbo].ProductSpecifications ps
     on  p.Id= ps.ProductId
@@ -122,7 +126,6 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
 	 on p.OpenStorageId= openStorage.Id
  left join PREG4.dbo.PrescriptionStatuses Pstatues
 	 on ps.PrescriptionStatusId= Pstatues.Id
-  
 
 where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @AspNo  IS NULL)</CommandText>
       </Query>
@@ -173,7 +176,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
         <Field Name="MahTransfer">
           <DataField>MahTransfer</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Responsible">
           <DataField>Responsible</DataField>
@@ -237,7 +240,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
 	 CONVERT(varchar, cast(ps.PsurPeriodStart as date),120)+' - '+CONVERT(varchar,cast(ps.PsurPeriodEnd as date), 120) as NextPSURperiod   ,
 	CONVERT(VARCHAR, cast(ps.LaunchDate as date), 120) as [MarketDate],  case when ps.NotMarketed = 1 then 'X' else '' end   as [NotMarketed],
 	case when ps.DeletionOfApproval  = 1 then 'X' else '' end  as [DeletionOfApproval],
-	CONVERT(VARCHAR,cast(ps.MahTransfer as date), 120) as[MaTransfer], p.Id 
+	CONVERT(VARCHAR,cast(ps.MahTransfer as date), 120) as[MaTransferDate], p.Id 
 	  
  
   from PREG4.dbo.Products p
@@ -307,8 +310,8 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
           <DataField>DeletionOfApproval</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="MaTransfer">
-          <DataField>MaTransfer</DataField>
+        <Field Name="MaTransferDate">
+          <DataField>MaTransferDate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Id">
@@ -317,7 +320,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="ProductPharmaceutical">
+    <DataSet Name="ProductInformation">
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
         <QueryParameters>
@@ -329,38 +332,34 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT DISTINCT Responsible.NAME      AS[Responsible], 
-                p.declaration         AS[Composition], 
+               -- p.declaration         AS[Composition], 
                 p.specactivesubstance AS [SpecificationActiveSubstance], 
                 p.specfinishedprod    AS [SpecificationFinishedProduc], 
                 openStorage.NAME      AS [OpenStorage ], 
                 Pstatues.NAME         AS[PrescriptionStatus], 
                 p.atccode, 
                 p.linktosmpc          AS [ApprovedSmPC], 
-                p.linktopil           AS [ApprovedPIL], 
-                dosageFrom.NAME       AS [Pharmaceuticalform] 
+                p.linktopil           AS [ApprovedPIL]
+               
 FROM   preg4.dbo.products p 
        JOIN [PREG4].[dbo].productspecifications ps 
          ON p.id = ps.productid 
        JOIN preg4.dbo.productnames names 
          ON p.productnameid = names.id 
-       LEFT JOIN preg4.dbo.responsiblemanagers Responsible 
+        JOIN preg4.dbo.responsiblemanagers Responsible 
               ON Responsible.id = p.responsiblemanagerid 
-       LEFT JOIN preg4.dbo.dosageforms dosageFrom 
-              ON p.dosageformid = dosageFrom.id 
-       LEFT JOIN preg4.dbo.openstorages openStorage 
+       
+        JOIN preg4.dbo.openstorages openStorage 
               ON p.openstorageid = openStorage.id 
-       LEFT JOIN preg4.dbo.prescriptionstatuses Pstatues 
+        JOIN preg4.dbo.prescriptionstatuses Pstatues 
               ON ps.prescriptionstatusid = Pstatues.id 
+  
   
 where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @AspNo  IS NULL)  </CommandText>
       </Query>
       <Fields>
         <Field Name="Responsible">
           <DataField>Responsible</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Composition">
-          <DataField>Composition</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SpecificationActiveSubstance">
@@ -391,10 +390,6 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
           <DataField>ApprovedPIL</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Pharmaceuticalform">
-          <DataField>Pharmaceuticalform</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
       </Fields>
     </DataSet>
   </DataSets>
@@ -406,10 +401,10 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.13498in</Width>
+                  <Width>1.18661in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.29429in</Width>
+                  <Width>1.46834in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.33158in</Width>
@@ -1339,7 +1334,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             <Top>0.18681in</Top>
             <Left>1.24259cm</Left>
             <Height>0.51333in</Height>
-            <Width>10.36113in</Width>
+            <Width>10.58681in</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1373,39 +1368,39 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                   <Width>1.16667in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7361in</Width>
+                  <Width>0.60068in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.49307in</Width>
+                  <Width>1.18103in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.62501in</Width>
+                  <Width>1.21485in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.30554in</Width>
+                  <Width>0.97221in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.63237in</Width>
+                  <Width>0.51128in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.10028in</Width>
+                  <Width>0.92667in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.69097in</Width>
+                  <Width>0.88931in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.35416in</Width>
+                  <Width>0.91232in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.39583in</Width>
+                  <Width>1.10461in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>1.08724in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.45833in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1798,7 +1793,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox42</rd:DefaultName>
@@ -1904,7 +1901,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox36</rd:DefaultName>
@@ -2359,7 +2358,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>NextPSURperiod</rd:DefaultName>
@@ -2457,7 +2458,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                   <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>DeletionOfApproval</rd:DefaultName>
@@ -2503,7 +2506,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!MahTransfer.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2581,10 +2586,10 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                 </FilterValues>
               </Filter>
             </Filters>
-            <Top>1.05778in</Top>
+            <Top>1.3182in</Top>
             <Left>0.50915in</Left>
-            <Height>0.5in</Height>
-            <Width>13.5in</Width>
+            <Height>0.70833in</Height>
+            <Width>10.56687in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -2609,7 +2614,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox43</rd:DefaultName>
-            <Top>0.7557in</Top>
+            <Top>1.01612in</Top>
             <Left>0.48921in</Left>
             <Height>0.25in</Height>
             <Width>2.17708in</Width>
@@ -2771,8 +2776,8 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                 </FilterValues>
               </Filter>
             </Filters>
-            <Top>2.06125in</Top>
-            <Left>0.4892in</Left>
+            <Top>2.6689in</Top>
+            <Left>0.46486in</Left>
             <Height>0.5in</Height>
             <Width>2.17709in</Width>
             <ZIndex>3</ZIndex>
@@ -2799,8 +2804,8 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox44</rd:DefaultName>
-            <Top>1.76958in</Top>
-            <Left>0.4892in</Left>
+            <Top>2.37723in</Top>
+            <Left>0.46486in</Left>
             <Height>0.25in</Height>
             <Width>2.17709in</Width>
             <ZIndex>4</ZIndex>
@@ -2831,43 +2836,11 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox51</rd:DefaultName>
-            <Top>2.85986in</Top>
+            <Top>3.44667in</Top>
             <Left>0.4892in</Left>
             <Height>0.27083in</Height>
             <Width>2.17708in</Width>
             <ZIndex>5</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox60">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Pharmaceutical data </Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox60</rd:DefaultName>
-            <Top>3.95361in</Top>
-            <Left>0.48919in</Left>
-            <Height>0.25in</Height>
-            <Width>3.4158in</Width>
-            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2895,11 +2868,11 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox69</rd:DefaultName>
-            <Top>4.95014in</Top>
-            <Left>0.48919in</Left>
+            <Top>4.79736in</Top>
+            <Left>0.46487in</Left>
             <Height>0.25in</Height>
             <Width>2.17708in</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2914,10 +2887,10 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.0243in</Width>
+                  <Width>0.64188in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.29207in</Width>
+                  <Width>1.01475in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.27045in</Width>
@@ -2926,36 +2899,36 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                   <Width>0.63541in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.40319in</Width>
+                  <Width>0.98649in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.71139in</Width>
+                  <Width>1.45142in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.52431in</Width>
+                  <Width>0.90541in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.48569in</Width>
+                  <Width>0.8225in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.1875in</Width>
+                  <Width>0.79554in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.69791in</Width>
+                  <Width>1.34769in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.73958in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.03427in</Width>
+                  <Width>0.85719in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.8125in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>0.5625in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3185,7 +3158,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox78</rd:DefaultName>
@@ -3238,7 +3213,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox80</rd:DefaultName>
@@ -3291,7 +3268,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox82</rd:DefaultName>
@@ -3337,14 +3316,16 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Renewal,unlimited validity</Value>
+                                  <Value>Renewal, unlimited validity</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>White</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox84</rd:DefaultName>
@@ -3397,7 +3378,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox86</rd:DefaultName>
@@ -3601,24 +3584,26 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox96">
+                        <Textbox Name="Textbox12">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Ma Transfer</Value>
+                                  <Value>Ma Transfer Date</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>White</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox96</rd:DefaultName>
+                          <rd:DefaultName>Textbox12</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -3667,7 +3652,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Land.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3716,7 +3703,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ProductName.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3765,7 +3754,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Name.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -3814,7 +3805,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!MaNo.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -3865,10 +3858,14 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ApplicationDate.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ApplicationDate1</rd:DefaultName>
@@ -3914,10 +3911,14 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ApplicationWithdrawn.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ApplicationWithdrawn1</rd:DefaultName>
@@ -3963,10 +3964,14 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ApprovalExpires.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ApprovalExpires1</rd:DefaultName>
@@ -4013,6 +4018,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                                 <TextRun>
                                   <Value>=Fields!Renewal.Value</Value>
                                   <Style>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -4065,10 +4071,14 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ApprovalDate.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ApprovalDate1</rd:DefaultName>
@@ -4114,7 +4124,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!NextPSURperiod.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -4165,7 +4177,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!NotMarketed.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -4216,7 +4230,9 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!DeletionOfApproval.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -4259,21 +4275,25 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="MaTransfer">
+                        <Textbox Name="MaTransferDate">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!MaTransfer.Value</Value>
-                                  <Style />
+                                  <Value>=Fields!MaTransferDate.Value</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>MaTransfer</rd:DefaultName>
+                          <rd:DefaultName>MaTransferDate</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4309,7 +4329,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.03472in</Height>
+                  <Height>0.0868in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -4324,7 +4344,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                             </Parameter>
                           </Parameters>
                           <Visibility>
-                            <Hidden>true</Hidden>
+                            <Hidden>=iif(Globals!RenderFormat.Name="PDF", FALSE,TRUE)</Hidden>
                             <ToggleItem>Land</ToggleItem>
                           </Visibility>
                           <Style>
@@ -4333,7 +4353,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                             </Border>
                           </Style>
                         </Subreport>
-                        <ColSpan>13</ColSpan>
+                        <ColSpan>12</ColSpan>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -4347,7 +4367,35 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
-                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox14">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
@@ -4385,11 +4433,11 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <DataSetName>CountrySpecificInformation</DataSetName>
-            <Top>5.25569in</Top>
-            <Left>0.4892in</Left>
-            <Height>0.53472in</Height>
-            <Width>15.00607in</Width>
-            <ZIndex>8</ZIndex>
+            <Top>5.10291in</Top>
+            <Left>0.46488in</Left>
+            <Height>0.8993in</Height>
+            <Width>12.28081in</Width>
+            <ZIndex>7</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4400,16 +4448,19 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.17709in</Width>
+                  <Width>2.29206in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.38542in</Width>
+                  <Width>1.27045in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.625in</Width>
+                  <Width>2.0386in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.61458in</Width>
+                  <Width>1.71139in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.01in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -4595,6 +4646,59 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox122</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>CornflowerBlue</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox8">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Open Storage </Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox8</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4831,12 +4935,62 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="OpenStorage_1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!OpenStorage_.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>OpenStorage_1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -4853,479 +5007,12 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>ProductPharmaceutical</DataSetName>
-            <Top>3.15847in</Top>
-            <Left>0.4892in</Left>
+            <DataSetName>ProductInformation</DataSetName>
+            <Top>3.7175in</Top>
+            <Left>0.46488in</Left>
             <Height>0.5in</Height>
-            <Width>6.80209in</Width>
-            <ZIndex>9</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Tablix>
-          <Tablix Name="Tablix7">
-            <TablixBody>
-              <TablixColumns>
-                <TablixColumn>
-                  <Width>3.41578in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>2.71875in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>2.67015in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1.21875in</Width>
-                </TablixColumn>
-              </TablixColumns>
-              <TablixRows>
-                <TablixRow>
-                  <Height>0.25in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox124">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Composition</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox124</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <BackgroundColor>CornflowerBlue</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox126">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Specification Active Substance</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox126</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <BackgroundColor>CornflowerBlue</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox128">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Specification Finished Produc</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox128</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <BackgroundColor>CornflowerBlue</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox130">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Open Storage </Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>White</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox130</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <BackgroundColor>CornflowerBlue</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.25in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Composition">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Composition.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Composition</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="SpecificationActiveSubstance">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!SpecificationActiveSubstance.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>SpecificationActiveSubstance</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="SpecificationFinishedProduc">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!SpecificationFinishedProduc.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>SpecificationFinishedProduc</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="OpenStorage_">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!OpenStorage_.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>OpenStorage_</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-              </TablixRows>
-            </TablixBody>
-            <TablixColumnHierarchy>
-              <TablixMembers>
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-                <TablixMember />
-              </TablixMembers>
-            </TablixColumnHierarchy>
-            <TablixRowHierarchy>
-              <TablixMembers>
-                <TablixMember>
-                  <KeepWithGroup>After</KeepWithGroup>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="Details3" />
-                </TablixMember>
-              </TablixMembers>
-            </TablixRowHierarchy>
-            <DataSetName>ProductPharmaceutical</DataSetName>
-            <Top>4.25917in</Top>
-            <Left>0.48921in</Left>
-            <Height>0.5in</Height>
-            <Width>10.02343in</Width>
-            <ZIndex>10</ZIndex>
+            <Width>9.3225in</Width>
+            <ZIndex>8</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -5340,7 +5027,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
           </Border>
         </Style>
       </Body>
-      <Width>16.9128in</Width>
+      <Width>12.74569in</Width>
       <Page>
         <PageHeader>
           <Height>3.83329cm</Height>
@@ -5552,7 +5239,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox149</rd:DefaultName>
-              <Top>0.90499in</Top>
+              <Top>0.89111in</Top>
               <Left>10.43892in</Left>
               <Height>0.19917in</Height>
               <Width>2.08458in</Width>
@@ -5571,7 +5258,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
               <Top>1.35292in</Top>
               <Left>0.48919in</Left>
               <Height>0in</Height>
-              <Width>14.13108in</Width>
+              <Width>12.03431in</Width>
               <ZIndex>6</ZIndex>
               <Style>
                 <Border>
@@ -5587,7 +5274,7 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>4.25979cm</Height>
+          <Height>1.21708cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -5606,8 +5293,8 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox6</rd:DefaultName>
-              <Top>0.64917in</Top>
-              <Left>7.88417in</Left>
+              <Top>0.13875in</Top>
+              <Left>6.46528in</Left>
               <Height>0.25in</Height>
               <Width>1in</Width>
               <Style>
@@ -5627,8 +5314,8 @@ where  (P.id = @ProductId OR @ProductId IS NULL ) and ( P.AspNumber= @AspNo OR @
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>8.5in</PageHeight>
-        <PageWidth>14in</PageWidth>
+        <PageHeight>10in</PageHeight>
+        <PageWidth>17in</PageWidth>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>
         <TopMargin>1in</TopMargin>
