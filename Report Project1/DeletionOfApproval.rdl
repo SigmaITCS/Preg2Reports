@@ -120,7 +120,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Deletion of approval</Value>
+                                  <Value>Deregistration</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -177,7 +177,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ASP/DSP</Value>
+                                  <Value>ASP/DSP no</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>

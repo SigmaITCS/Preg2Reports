@@ -132,7 +132,7 @@ ORDER  BY ps.land,
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.75521in</Width>
+                  <Width>0.95313in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.44917in</Width>
@@ -147,7 +147,7 @@ ORDER  BY ps.land,
                   <Width>1.22917in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.59375in</Width>
+                  <Width>1.5in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.65625in</Width>
@@ -172,7 +172,7 @@ ORDER  BY ps.land,
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Asp no</Value>
+                                  <Value>ASP/DSP no</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -898,7 +898,7 @@ ORDER  BY ps.land,
             <Top>0.25667in</Top>
             <Left>1.87536cm</Left>
             <Height>0.4925in</Height>
-            <Width>11.4375in</Width>
+            <Width>11.54167in</Width>
             <Style />
           </Tablix>
         </ReportItems>
