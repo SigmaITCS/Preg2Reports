@@ -167,7 +167,7 @@ WHERE ps.LanseringsDatumEnd &lt;= @ToDate
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Product Name</Value>
+                                  <Value>Product Name </Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
