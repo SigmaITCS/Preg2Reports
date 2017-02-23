@@ -18,18 +18,16 @@
             <Value>=Parameters!ToDate.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SELECT p.aspnumber                         AS[Asp no], 
-       names.NAME                          AS [Product Name], 
-       p.strength, 
-       ps.land                             AS [Country], 
-       Responsible.NAME                    AS [Responsible], 
-       Responsible.id					  AS [ResponsibleId],
-       CONVERT(VARCHAR, Cast(ps.approvaldate AS DATE),120)     AS [ApprovalDate], 
-       CONVERT(VARCHAR, Cast(ps.launchdate AS DATE),120)       AS [StartMarketingDate], 
+        <CommandText>SELECT CASE WHEN ps.Land='Sweden'
+			THEN p.aspnumber ELSE ps.SpecAspNr END AS[Asp no], 
+       names.NAME  AS [Product Name], p.strength,  ps.land AS [Country], Responsible.NAME AS [Responsible], 
+       Responsible.id AS [ResponsibleId],
+       CONVERT(VARCHAR, Cast(ps.approvaldate AS DATE),120) AS [ApprovalDate], 
+       CONVERT(VARCHAR, Cast(ps.launchdate AS DATE),120)   AS [StartMarketingDate], 
        CONVERT(VARCHAR, Cast(ps.lanseringsdatumend AS DATE),120) AS [EndMarketingDate]      
 
 FROM   preg4.dbo.products p 
-       JOIN [PREG4].[dbo].productspecifications ps 
+       JOIN preg4.dbo.productspecifications ps 
          ON p.id = ps.productid 
        JOIN preg4.dbo.productnames names 
          ON p.productnameid = names.id 
@@ -42,8 +40,9 @@ FROM   preg4.dbo.products p
        LEFT JOIN preg4.dbo.responsiblemanagers Responsible 
               ON Responsible.id = p.responsiblemanagerid 
 
-where ps.LanseringsDatumEnd &lt;= @ToDate
- order by ps.LanseringsDatumEnd</CommandText>
+
+WHERE ps.LanseringsDatumEnd &lt;= @ToDate
+ ORDER BY ps.LanseringsDatumEnd</CommandText>
       </Query>
       <Fields>
         <Field Name="Asp_no">
