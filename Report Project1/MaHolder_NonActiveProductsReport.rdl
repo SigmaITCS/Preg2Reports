@@ -13,8 +13,15 @@
     <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>PREG_Data_source</DataSourceName>
-        <CommandText>select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
-	   p.Strength,  CONVERT(VARCHAR, CAST(ps.ApprovalDate as Date),120) as [ApprovalDate], app.Name as [ApprovedProcedures],  CONVERT(VARCHAR,CAST(ps.ApprovalCease as Date),120) as[Sunset],  ps.MtNumber as [MaNo] , 
+        <CommandText>select case when ps.Land ='Sweden'
+			 then p.AspNumber 
+			 else ps.SpecAspNr end AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form],
+	   p.Strength,  
+	   CONVERT(VARCHAR, CAST(ps.ApprovalDate as Date),120) as [ApprovalDate], app.Name as [ApprovedProcedures],  
+	  case when ps.Land !='Sweden'
+	  then CONVERT(VARCHAR,CAST(ps.SunsetClause as Date),120) 
+	  else CONVERT(VARCHAR,CAST(p.SunsetClause as Date),120) end as[Sunset], 
+	    ps.MtNumber as [MaNo] , 
          Responsible.Id   as [ResponsibleId]     
  
   from PREG4.dbo.Products p
@@ -30,7 +37,6 @@
   on app.Id= p.ApprovalProcedureId
   	 left join PREG4.dbo.ResponsibleManagers Responsible
    on Responsible.Id= p.ResponsibleManagerId
-
 
  order by ps.ApprovalDate, ps.Land</CommandText>
       </Query>
@@ -1196,14 +1202,14 @@
             <Top>0.12097in</Top>
             <Left>2.27225cm</Left>
             <Height>0.52028in</Height>
-            <Width>12.08334in</Width>
+            <Width>12.08335in</Width>
             <Style />
           </Tablix>
         </ReportItems>
         <Height>1.20375in</Height>
         <Style />
       </Body>
-      <Width>12.97793in</Width>
+      <Width>12.97794in</Width>
       <Page>
         <PageHeader>
           <Height>2.19604cm</Height>

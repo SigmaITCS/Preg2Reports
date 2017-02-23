@@ -21,23 +21,16 @@
             <Value>=Parameters!ToDate.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText> SELECT p.aspnumber                                             AS[Aspno], 
-       names.NAME                                              AS [ProductName] 
-       , 
-       ps.land                                                 AS 
-       [Country], 
-       df.NAME                                                 AS 
-       [Pharmacetical form], 
-       p.strength, 
-       ps.mtnumber                                             AS [MaNo], 
+        <CommandText> SELECT  case WHEN ps.Land='Sweden'
+			THEN p.aspnumber ELSE ps.SpecAspNr END AS [Aspno], 
+       names.NAME AS [ProductName], ps.land AS [Country], df.NAME AS [Pharmacetical form], 
+       p.strength, ps.mtnumber  AS [MaNo], 
        CONVERT(VARCHAR, Cast(ps.psurperiodstart AS DATE), 120) AS [PSURfrom], 
        CONVERT(VARCHAR, Cast(ps.psurperiodend AS DATE), 120)   AS [PSURend], 
-       Responsible.id                                          AS 
-       [ResponsibleId], 
-       Responsible.NAME                                        AS [Responsible], 
-       Responsible.id 
+       Responsible.id AS [ResponsibleId], Responsible.NAME AS [Responsible], Responsible.id 
+  
   from PREG4.dbo.Products p
-   join [PREG4].[dbo].ProductSpecifications ps
+   join PREG4.dbo.ProductSpecifications ps
     on  p.Id= ps.ProductId
   join PREG4.dbo.ProductNames names
     on p.ProductNameId= names.Id

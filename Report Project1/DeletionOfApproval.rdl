@@ -21,8 +21,10 @@
             <Value>=Parameters!ToDate.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>
- select CONVERT(VARCHAR, cast(ps.Deregistered as date), 120) as [Deletion of approval] , p.AspNumber AS[Asp no],
+        <CommandText>select CONVERT(VARCHAR, cast(ps.Deregistered as date), 120) as [Deletion of approval] ,
+        case when ps.Land='Sweden' 
+			 then p.AspNumber 
+			 else ps.SpecAspNr end AS[Asp no],
           names.Name as [Product Name], ps.Land as[Country], df.Name as [Pharmacetical form] ,
          p.Strength,ma.Name as [MA Holder], TA.Name as [TherapeuticArea]
  

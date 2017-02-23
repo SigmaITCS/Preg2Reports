@@ -21,22 +21,27 @@
             <Value>=Parameters!ToDate.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>select p.AspNumber AS[Asp no],  names.Name as [Product Name], ps.Land as [Country], df.Name as [Pharmacetical form], p.Strength, 
-        ps.MtNumber as [MaNo] , CONVERT(VARCHAR, cast(ps.ApprovalCease as date), 120) as [ApprovalExpires]
-    ,Responsible.Id as [ResponsibleId]    , Responsible.Name  as [Responsible]  , Responsible.Id      
-  from PREG4.dbo.Products p
-   join [PREG4].[dbo].ProductSpecifications ps
-    on  p.Id= ps.ProductId
-  join PREG4.dbo.ProductNames names
-    on p.ProductNameId= names.Id
-  left join  PREG4.dbo.DosageForms df
-    on p.DosageFormId= df.Id
-  left join  PREG4.dbo.MarketAuthHolders Ma
-	 on ps.MarketAuthHolderId= ma.Id
-  left join PREG4.dbo.TherapeuticAreas TA
-    on names.TherapeuticAreaId= TA.id 
-	 left join PREG4.dbo.ResponsibleManagers Responsible
-   on Responsible.Id= p.ResponsibleManagerId
+        <CommandText>SELECT CASE 
+         WHEN ps.land = 'Sweden' THEN p.aspnumber 
+         ELSE ps.specaspnr 
+       END  AS[Asp no], 
+       names.NAME AS [Product Name], ps.land AS [Country], df.NAME AS [Pharmacetical form], 
+       p.strength, ps.mtnumber AS [MaNo], 
+       CONVERT(VARCHAR, Cast(ps.approvalcease AS DATE), 120) AS  [ApprovalExpires], 
+       Responsible.id AS [ResponsibleId], Responsible.NAME AS [Responsible],  Responsible.id 
+FROM   preg4.dbo.products p 
+       JOIN PREG4.dbo.productspecifications ps 
+         ON p.id = ps.productid 
+       JOIN preg4.dbo.productnames names 
+         ON p.productnameid = names.id 
+       LEFT JOIN preg4.dbo.dosageforms df 
+              ON p.dosageformid = df.id 
+       LEFT JOIN preg4.dbo.marketauthholders Ma 
+              ON ps.marketauthholderid = ma.id 
+       LEFT JOIN preg4.dbo.therapeuticareas TA 
+              ON names.therapeuticareaid = TA.id 
+       LEFT JOIN preg4.dbo.responsiblemanagers Responsible 
+              ON Responsible.id = p.responsiblemanagerid 
 
   where  ( ps.ApprovalCease &gt;= @FromDate OR @FromDate  IS NULL)
   and  ( ps.ApprovalCease&lt;= @ToDate  OR @ToDate IS NULL )
@@ -61,7 +66,7 @@
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Strength">
-          <DataField>Strength</DataField>
+          <DataField>strength</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="MaNo">
@@ -81,7 +86,7 @@
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Id">
-          <DataField>Id</DataField>
+          <DataField>id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
@@ -1090,7 +1095,7 @@
         <Height>0.71417in</Height>
         <Style />
       </Body>
-      <Width>11.84375in</Width>
+      <Width>11.84376in</Width>
       <Page>
         <PageHeader>
           <Height>2.06375cm</Height>
